@@ -57,8 +57,24 @@
           <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
             <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
             <ul class="customer-links list-inline">
-              <li><a href="/login">Login</a></li>
-              <li><a href="/register">Create Account</a></li>
+              @if(Auth::guest())
+              <li><a href="{{route('login_view')}}">Login</a></li>
+              <li><a href="{{route('register_view')}}">Create Account</a></li>
+              @else
+                @if(Auth::user())
+                <li>
+                  <div class="dropdown">
+                    <p class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer;">
+                      {{Auth::user()->email}}
+                    </p>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="{{route('profile')}}">My Profile</a>
+                      <a class="dropdown-item" href="{{route('logout')}}">Logout</a>
+                    </div>
+                  </div>
+                </li>
+                @endif
+              @endif
             </ul>
           </div>
         </div>
@@ -107,7 +123,7 @@
                             </a>
                           </li>
                           <li class="lvl-2">
-                            <a href="="site-nav lvl-2">
+                            <a href="site-nav lvl-2">
                               Formal Shirt Full
                             </a>
                           </li>

@@ -15,30 +15,41 @@
         	<div class="row">
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 main-col offset-md-3">
                 	<div class="mb-4">
-                       <form method="post" action="#" id="CustomerLoginForm" accept-charset="UTF-8" class="contact-form">	
+                        @if(Session::has('success'))
+                        <div class="alert alert-success">{{Session::get('success')}}</div>
+                        @endif
+                        @if(Session::has('fail'))
+                        <div class="alert alert-danger">{{Session::get('fail')}}</div>
+                        @endif
+                       <form method="post" action="{{route('register')}}" id="CustomerLoginForm" accept-charset="UTF-8" class="contact-form">	
+                        @csrf
                           <div class="row">
 	                          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
                                     <label for="FirstName">First Name</label>
-                                    <input type="text" name="customer[first_name]" placeholder="" id="FirstName" autofocus="">
+                                    <input type="text" name="first_name" placeholder="" id="FirstName" autofocus="" value="{{old('first_name')}}">
+                                    <span class="text-danger mt-3">@error('first_name') {{$message}} @enderror</span>
                                 </div>
                                </div>
                                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
                                     <label for="LastName">Last Name</label>
-                                    <input type="text" name="customer[last_name]" placeholder="" id="LastName">
+                                    <input type="text" name="last_name" placeholder="" id="LastName" value="{{old('last_name')}}">
+                                    <span class="text-danger mt-3">@error('last_name') {{$message}} @enderror</span>
                                 </div>
                                </div>
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
                                     <label for="CustomerEmail">Email</label>
-                                    <input type="email" name="customer[email]" placeholder="" id="CustomerEmail" class="" autocorrect="off" autocapitalize="off" autofocus="">
+                                    <input type="email" name="email" placeholder="" id="CustomerEmail" class="" autocorrect="off" autocapitalize="off" autofocus="" value="{{old('email')}}">
+                                    <span class="text-danger mt-3">@error('email') {{$message}} @enderror</span>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
                                     <label for="CustomerPassword">Password</label>
-                                    <input type="password" value="" name="customer[password]" placeholder="" id="CustomerPassword" class="">                        	
+                                    <input type="password" value="" name="password" placeholder="" id="CustomerPassword" class="">
+                                    <span class="text-danger mt-3">@error('password') {{$message}} @enderror</span>
                                 </div>
                             </div>
                           </div>
