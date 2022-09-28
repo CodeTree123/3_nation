@@ -2,6 +2,7 @@
 use App\Http\Controllers\FrontendController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,25 +39,27 @@ Route::post('/login',[AuthController::class, 'login'])->name('login');
 Route::post('/change_password',[AuthController::class, 'change_password'])->name('change_password');
 
 Route::get('/admin',[FrontendController::class, 'admin_index'])->name('admin_index');
-Route::post('/shop/edit_profile',[ShopController::class,'shop_edit_profile'])->name('shop_edit_profile');
+// Route::post('/shop/edit_profile',[ShopController::class,'shop_edit_profile'])->name('shop_edit_profile');
 
-Route::get('/shop/catagory', [ShopController::class, 'shop_catagory'])->name('shop_catagory');
-Route::post('/shop/catagory/add', [ShopController::class, 'shop_catagory_add'])->name('shop_catagory_add');
-Route::get('/shop/catagory/edit/{id}', [ShopController::class, 'shop_catagory_edit']);
-Route::put('/shop/catagory/update', [ShopController::class, 'shop_catagory_update'])->name('shop_catagory_update');
-Route::delete('/shop/catagory/delete', [ShopController::class, 'shop_catagory_delete'])->name('shop_catagory_delete');
+Route::get('/admin/branch', [AdminController::class, 'branch'])->name('branch');
 
-Route::get('/shop/sub_catagory', [ShopController::class, 'shop_sub_catagory'])->name('shop_sub_catagory');
-Route::post('/shop/sub_catagory/add', [ShopController::class, 'shop_sub_catagory_add'])->name('shop_sub_catagory_add');
-Route::get('/shop/sub_catagory/edit/{id}', [ShopController::class, 'shop_sub_catagory_edit']);
-Route::put('/shop/sub_catagory/update', [ShopController::class, 'shop_sub_catagory_update'])->name('shop_sub_catagory_update');
-Route::delete('/shop/sub_catagory/delete', [ShopController::class, 'shop_sub_catagory_delete'])->name('shop_sub_catagory_delete');
+Route::get('/admin/catagory', [AdminController::class, 'catagory'])->name('catagory');
+Route::post('/admin/catagory/add', [AdminController::class, 'catagory_add'])->name('catagory_add');
+Route::get('/admin/catagory/edit/{id}', [AdminController::class, 'catagory_edit']);
+Route::put('/admin/catagory/update', [AdminController::class, 'catagory_update'])->name('catagory_update');
+Route::delete('/admin/catagory/delete', [AdminController::class, 'catagory_delete'])->name('catagory_delete');
 
-Route::get('/shop/service', [ShopController::class, 'shop_service'])->name('shop_service');
-Route::post('/shop/service/add', [ShopController::class, 'shop_service_add'])->name('shop_service_add');
-Route::get('/shop/service/edit/{id}', [ShopController::class, 'shop_service_edit']);
-Route::put('/shop/service/update', [ShopController::class, 'shop_service_update'])->name('shop_service_update');
-Route::delete('/shop/service/delete', [ShopController::class, 'shop_service_delete'])->name('shop_service_delete');
+Route::get('/admin/sub_catagory', [AdminController::class, 'sub_catagory'])->name('sub_catagory');
+Route::post('/admin/sub_catagory/add', [AdminController::class, 'sub_catagory_add'])->name('sub_catagory_add');
+Route::get('/admin/sub_catagory/edit/{id}', [AdminController::class, 'sub_catagory_edit']);
+Route::put('/admin/sub_catagory/update', [AdminController::class, 'sub_catagory_update'])->name('sub_catagory_update');
+Route::delete('/admin/sub_catagory/delete', [AdminController::class, 'sub_catagory_delete'])->name('sub_catagory_delete');
+
+Route::get('/admin/product', [AdminController::class, 'product'])->name('product');
+Route::post('/admin/product/add', [AdminController::class, 'product_add'])->name('product_add');
+Route::get('/admin/product/edit/{id}', [AdminController::class, 'product_edit']);
+Route::put('/admin/product/update', [AdminController::class, 'product_update'])->name('product_update');
+Route::delete('/admin/product/delete', [AdminController::class, 'product_delete'])->name('product_delete');
 
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

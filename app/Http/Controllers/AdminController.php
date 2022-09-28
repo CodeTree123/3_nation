@@ -4,70 +4,62 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\shop_info;
+use App\Models\branch;
 use App\Models\catagory_info;
 use App\Models\subcatagory_info;
-use App\Models\service;
+use App\Models\product;
 use File;
 
-class ShopController extends Controller
+class AdminController extends Controller
 {
     //
-    public function shop_index(){
-        return view('shop_admin.layout.shop_index');
-    }
+    // public function shop_index(){
+    //     return view('shop_admin.layout.shop_index');
+    // }
 //shop Profile Update
-    public function shop_edit_profile(Request $request){
-        // dd($request->all());
-        $shop= shop_info::where('u_id','=',$request->s_id)->update([
-            'b_legal_name' => $request->b_legal_name,
-            'b_dba' => $request->b_dba,
-            'street_number_b' => $request->street_number_b,
-            'apt_b' => $request->apt_b,
-            'city_b' => $request->city_b,
-            'state_b' => $request->state_b,
-            'zip_b' => $request->zip_b,
-            'street_number_c' => $request->street_number_c,
-            'apt_c' => $request->apt_c,
-            'city_c' => $request->city_c,
-            'state_c' => $request->state_c,
-            'zip_c' => $request->zip_c
-        ]);
+    // public function shop_edit_profile(Request $request){
+    //     // dd($request->all());
+    //     $shop= shop_info::where('u_id','=',$request->s_id)->update([
+    //         'b_legal_name' => $request->b_legal_name,
+    //         'b_dba' => $request->b_dba,
+    //         'street_number_b' => $request->street_number_b,
+    //         'apt_b' => $request->apt_b,
+    //         'city_b' => $request->city_b,
+    //         'state_b' => $request->state_b,
+    //         'zip_b' => $request->zip_b,
+    //         'street_number_c' => $request->street_number_c,
+    //         'apt_c' => $request->apt_c,
+    //         'city_c' => $request->city_c,
+    //         'state_c' => $request->state_c,
+    //         'zip_c' => $request->zip_c
+    //     ]);
 
-        return back()->with('success','Shop information have been successfully Updated.');
+    //     return back()->with('success','Shop information have been successfully Updated.');
 
+    // }
+    public function branch(){
+        $branchs = branch::all();
+        return view('admin.layout.branch',compact('branchs'));
     }
 // Catagory
-    public function shop_catagory(){
-        $catagories = catagory_info::where('shop_id','=',auth()->id())->get();
-        return view('shop_admin.layout.catagory',compact('catagories'));
+    public function catagory(){
+        $branchs = branch::all();
+        $catagories = catagory_info::Join('branches','catagory_infos.branch_id','=','branches.id')->get(['catagory_infos.*','branches.branch_name']);
+        return view('admin.layout.catagory',compact('branchs','catagories'));
     }
 
-    public function shop_catagory_add(Request $request){
+    public function catagory_add(Request $request){
         // dd($request->all());
-        $filename='';
-        if($request->hasFile('catagory_image'))
-        {
-
-            $file= $request->file('catagory_image');
-            if ($file->isValid()) {
-                $filename="shopcat".date('Ymdhms').'.'.$file->getClientOriginalExtension();
-                $file->storeAs('shop/catagory',$filename);
-            }
-        }
-        // dd($filename);
         catagory_info::create([
-            'shop_id' => $request->shop_id,
+            'branch_id' => $request->branch_id,
             'catagory_name' => $request->catagory_name,
-            'c_description' => $request->description,
-            'c_image' => $filename,
-            'c_status' => $request->c_status,
+            'catstatus' => $request->c_status,
         ]);
 
         return back()->with('success','Catagory information have been successfully Added.');
     }
 
-    public function shop_catagory_edit($id){
+    public function catagory_edit($id){
         $catagory = catagory_info::find($id);
         return response()->json([
             'status'=>200,
@@ -76,79 +68,44 @@ class ShopController extends Controller
 
     }
 
-    public function shop_catagory_update(Request $request){
+    public function catagory_update(Request $request){
         // dd($request->all());
-        $c_image = catagory_info::find($request->shop_catagory_id);
-        $filename=$c_image->c_image;
-        if($request->hasFile('catagory_image'))
-        {
-            $destination = 'uploads/shop/catagory/'.$c_image->c_image;
-            if(File::exists($destination)){
-                File::delete($destination);
-            }
-            $file= $request->file('catagory_image');
-            if ($file->isValid()) {
-                $filename="shopcat".date('Ymdhms').'.'.$file->getClientOriginalExtension();
-                $file->storeAs('shop/catagory',$filename);
-            }
-        }
-        // dd($filename);
-        catagory_info::find($request->shop_catagory_id)->update([
+        // $c_image = catagory_info::find($request->catagory_id);
+        catagory_info::find($request->catagory_id)->update([
+            'branch_id' => $request->branch_id,
             'catagory_name' => $request->catagory_name,
-            'c_description' => $request->description,
-            'c_image' => $filename,
         ]);
 
         return back()->with('success','Catagory information have been successfully Updated.');
     }
 
-    public function shop_catagory_delete(Request $request){
+    public function catagory_delete(Request $request){
 
-        $del_catagory_id = $request->deletingId;
-        $del_catagory_info = catagory_info::find($del_catagory_id);
-
-        $destination = 'uploads/shop/catagory/'.$del_catagory_info->c_image;
-        if(File::exists($destination)){
-            File::delete($destination);
-        }
+        $del_catagory_info = catagory_info::find($request->deletingId);
         $del_catagory_info->delete();
 
         return back()->with('success','Catagory information have been successfully Deleted.');
     }
 
 //Sub Catagory
-    public function shop_sub_catagory(){
-        $catagories = catagory_info::where('shop_id','=',auth()->id())->get();
-        $subcatagories = subcatagory_info::where('subcatagory_infos.shop_id','=',auth()->id())->Join('catagory_infos','subcatagory_infos.catagory_id','=','catagory_infos.id')->get(['subcatagory_infos.*','catagory_infos.catagory_name']);
-        return view('shop_admin.layout.sub_catagory',compact('catagories','subcatagories'));
+    public function sub_catagory(){
+        $catagories = catagory_info::Join('branches','catagory_infos.branch_id','=','branches.id')->get(['catagory_infos.*','branches.branch_name']);
+        $subcatagories = subcatagory_info::Join('catagory_infos','subcatagory_infos.cat_id','=','catagory_infos.id')->Join('branches','catagory_infos.branch_id','=','branches.id')->get(['subcatagory_infos.*','catagory_infos.catagory_name','branches.branch_name']);
+        return view('admin.layout.sub_catagory',compact('catagories','subcatagories'));
     }
 
-    public function shop_sub_catagory_add(Request $request){
+    public function sub_catagory_add(Request $request){
         // dd($request->all());
-        $filename='';
-        if($request->hasFile('sub_catagory_image'))
-        {
-
-            $file= $request->file('sub_catagory_image');
-            if ($file->isValid()) {
-                $filename="shopcat".date('Ymdhms').'.'.$file->getClientOriginalExtension();
-                $file->storeAs('shop/sub_catagory',$filename);
-            }
-        }
-        // dd($filename);
         subcatagory_info::create([
-            'shop_id' => $request->shop_id,
-            'catagory_id' => $request->cat_id,
+            'cat_id' => $request->cat_id,
             'subcatagory_name' => $request->subcatagory_name,
-            'sc_description' => $request->description,
-            'sc_image' => $filename,
-            'sc_status' => $request->sc_status,
+            'subcatstatus' => $request->subcat_status,
         ]);
 
         return back()->with('success','Sub Catagory information have been successfully Added.');
     }
 
-    public function shop_sub_catagory_edit($id){
+    public function sub_catagory_edit($id){
         $subcatagory = subcatagory_info::find($id);
         return response()->json([
             'status'=>200,
@@ -157,74 +114,61 @@ class ShopController extends Controller
 
     }
 
-    public function shop_sub_catagory_update(Request $request){
+    public function sub_catagory_update(Request $request){
         // dd($request->all());
-        $sc_image = subcatagory_info::find($request->shop_subcatagory_id);
-        $filename=$sc_image->sc_image;
-        if($request->hasFile('sub_catagory_image'))
-        {
-            $destination = 'uploads/shop/sub_catagory/'.$sc_image->sc_image;
-            if(File::exists($destination)){
-                File::delete($destination);
-            }
-            $file= $request->file('sub_catagory_image');
-            if ($file->isValid()) {
-                $filename="shopcat".date('Ymdhms').'.'.$file->getClientOriginalExtension();
-                $file->storeAs('shop/sub_catagory',$filename);
-            }
-        }
-        // dd($filename);
-        subcatagory_info::find($request->shop_subcatagory_id)->update([
-            'catagory_id' => $request->cat_id,
+        subcatagory_info::find($request->u_subcatagory_id)->update([
+            'cat_id' => $request->cat_id,
             'subcatagory_name' => $request->subcatagory_name,
-            'sc_description' => $request->description,
-            'sc_image' => $filename,
         ]);
 
         return back()->with('success','Sub Catagory information have been successfully Updated.');
     }
     
 
-    public function shop_sub_catagory_delete(Request $request){
+    public function sub_catagory_delete(Request $request){
 
-        $del_subcatagory_id = $request->deletingId;
-        $del_subcatagory_info = subcatagory_info::find($del_subcatagory_id);
-
-        $destination = 'uploads/shop/sub_catagory/'.$del_subcatagory_info->sc_image;
-        if(File::exists($destination)){
-            File::delete($destination);
-        }
+        $del_subcatagory_info = subcatagory_info::find($request->deletingId);
         $del_subcatagory_info->delete();
 
         return back()->with('success','Sub Catagory information have been successfully Deleted.');
     }
 
-//Service
-    public function shop_service(){
-        $subcatagories = subcatagory_info::where('shop_id','=',auth()->id())->get();
-        $services = service::where('services.shop_id','=',auth()->id())
-                            ->Join('subcatagory_infos','services.subcatagory_id','=','subcatagory_infos.id')
-                            ->Join('catagory_infos','subcatagory_infos.catagory_id','=','catagory_infos.id')
-                            ->get(['services.*','subcatagory_infos.subcatagory_name','catagory_infos.catagory_name']);
-        return view('shop_admin.layout.service',compact('subcatagories','services'));
+//Product
+    public function product(){
+        $subcatagories = subcatagory_info::Join('catagory_infos','subcatagory_infos.cat_id','=','catagory_infos.id')->Join('branches','catagory_infos.branch_id','=','branches.id')->get(['subcatagory_infos.*','catagory_infos.catagory_name','branches.branch_name']);
+        $products = product::Join('subcatagory_infos','products.subcat_id','=','subcatagory_infos.id')
+                            ->Join('catagory_infos','subcatagory_infos.cat_id','=','catagory_infos.id')
+                            ->Join('branches','catagory_infos.branch_id','=','branches.id')
+                            ->get(['products.*','subcatagory_infos.subcatagory_name','catagory_infos.catagory_name','branches.branch_name']);
+        return view('admin.layout.product',compact('subcatagories','products'));
     }
 
-    public function shop_service_add(Request $request){
+    public function product_add(Request $request){
         // dd($request->all());
-        service::create([
-            'shop_id' => $request->shop_id,
-            'subcatagory_id' => $request->subcat_id,
-            'service_name' => $request->service_name,
-            's_description' => $request->s_description,
+        $filename='';
+        if($request->hasFile('product_image'))
+        {
+
+            $file= $request->file('product_image');
+            if ($file->isValid()) {
+                $filename="product".date('Ymdhms').'.'.$file->getClientOriginalExtension();
+                $file->storeAs('product',$filename);
+            }
+        }
+        // dd($filename);
+        product::create([
+            'subcat_id' => $request->subcat_id,
+            'product_name' => $request->product_name,
+            'description' => $request->description,
             'price' => $request->price,
-            // 'sc_image' => $filename,
-            's_status' => $request->s_status,
+            'image' => $filename,
+            'prostatus' => $request->p_status,
         ]);
 
         return back()->with('success','Service information have been successfully Added.');
     }
 
-    public function shop_service_edit($id){
+    public function product_edit($id){
         $service = service::find($id);
         return response()->json([
             'status'=>200,
@@ -233,9 +177,9 @@ class ShopController extends Controller
 
     }
 
-    public function shop_service_update(Request $request){
+    public function product_update(Request $request){
         // dd($request->all());
-        service::find($request->shop_service_id)->update([
+        service::find($request->product_id)->update([
             'subcatagory_id' => $request->sub_cat_id,
             'service_name' => $request->u_service_name,
             's_description' => $request->u_s_description,
@@ -246,7 +190,7 @@ class ShopController extends Controller
         return back()->with('success','Sub Catagory information have been successfully Updated.');
     }
 
-    public function shop_service_delete(Request $request){
+    public function product_delete(Request $request){
 
         $del_service_id = $request->deletingId;
         $del_service_info = service::find($del_service_id);
