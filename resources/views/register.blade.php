@@ -1,6 +1,6 @@
 @include('include.header')
 
-    
+
     <!--Body Content-->
     <div id="page-content">
     	<!--Page Title-->
@@ -10,7 +10,7 @@
       		</div>
 		</div>
         <!--End Page Title-->
-        
+
         <div class="container">
         	<div class="row">
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 main-col offset-md-3">
@@ -21,10 +21,11 @@
                         @if(Session::has('fail'))
                         <div class="alert alert-danger">{{Session::get('fail')}}</div>
                         @endif
-                       <form method="post" action="{{route('register')}}" id="CustomerLoginForm" accept-charset="UTF-8" class="contact-form">	
+                       <form method="post" action="{{route('register')}}" id="CustomerLoginForm" accept-charset="UTF-8" class="contact-form">
                         @csrf
                           <div class="row">
 	                          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                  <input type="hidden" class="form-control" name="role_id" value="2">
                                 <div class="form-group">
                                     <label for="FirstName">First Name</label>
                                     <input type="text" name="first_name" placeholder="" id="FirstName" autofocus="" value="{{old('first_name')}}">
@@ -45,6 +46,13 @@
                                     <span class="text-danger mt-3">@error('email') {{$message}} @enderror</span>
                                 </div>
                             </div>
+                              <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label for="CustomerPhone">Phone</label>
+                                    <input type="tel" name="phone" placeholder="" id="CustomerPhone" class="" autocorrect="off" autocapitalize="off" autofocus="" value="{{old('phone')}}">
+                                    <span class="text-danger mt-3">@error('phone') {{$message}} @enderror</span>
+                                </div>
+                              </div>
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="form-group">
                                     <label for="CustomerPassword">Password</label>
@@ -52,6 +60,13 @@
                                     <span class="text-danger mt-3">@error('password') {{$message}} @enderror</span>
                                 </div>
                             </div>
+                              <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label for="ConfirmPassword">Confirm Password</label>
+                                    <input type="password" value="" name="cpassword" placeholder="" id="ConfirmPassword" class="">
+                                    <span class="text-danger mt-3">@error('cpassword') {{$message}} @enderror</span>
+                                </div>
+                              </div>
                           </div>
                           <div class="row">
                             <div class="text-center col-12 col-sm-12 col-md-12 col-lg-12">
@@ -63,8 +78,8 @@
                	</div>
             </div>
         </div>
-        
+
     </div>
     <!--End Body Content-->
-    
+
     @include('include.footer')

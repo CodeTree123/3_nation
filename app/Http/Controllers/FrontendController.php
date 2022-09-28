@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
@@ -34,7 +36,8 @@ class FrontendController extends Controller
         return view('single_product');
     }
     public function profile(){
-        return view('profile');
+        $user = User::where('id','=',auth()->id())->first();
+        return view('profile',compact('user'));
     }
     public function about_us(){
         return view('about_us');

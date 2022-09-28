@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use App\Models\User;
 
@@ -23,9 +24,13 @@ class AuthController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'email'=> 'required|email|unique:users',
+            'email'=> 'required|',
             'password'=> 'required',
+            'cpassword'=> 'required|same:password',
+
         ]);
         $user = User::create([
+            'role_id' => $request->role_id,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
@@ -33,7 +38,7 @@ class AuthController extends Controller
             'created_at'   =>Carbon::now()
         ]);
         if($user){
-            return back() ->with('success','Successfully Registered');            
+            return back()->with('success','Registation Successfull');
         }else{
             return back() ->with('fail','Please Check Your Information Properly');
         }
@@ -54,14 +59,34 @@ class AuthController extends Controller
         }
 
     }
+    public function change_password(Request $request){
+        $request->validate([
+            'old_pass'=> 'required|',
+            'new_pass'=> 'required',
+            'cnew_pass'=> 'required|same:new_pass',
+        ]);
+         $user = User::where('id','=',$request->user_id)->first();
+        if (Hash::check($request->old_pass, $user->password)){
+            $user->password = Hash::make($request->new_pass);
+            $user->update();
+            return back()->with('success','Successfully Changed Password');
+        }
+        else{
+            return back()->with('fail','Old Password Dose Not Matched');
+        }
+
+
+
+    }
+
 
     public function logout()
     {
         Session::flush();
-        
+
         Auth::logout();
 
         return redirect('/');
     }
-    
+
 }
