@@ -11,6 +11,10 @@ class FrontendController extends Controller
     public function index(){
         return view('index');
     }
+
+    public function admin_index(){
+        return view('admin.layout.admin_index');
+    }
     public function header(){
         return view('include.header');
     }

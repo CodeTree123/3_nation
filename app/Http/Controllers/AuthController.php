@@ -52,7 +52,13 @@ class AuthController extends Controller
         // dd($request->all());
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             // return Redirect::index();
-            return redirect()->route('index');
+            if(auth::User()->role_id == 2){
+                return redirect()->route('index');
+            }else if(auth::User()->role_id ==1){
+                return redirect()->route('admin_index');
+            }else{
+                return redirect()->back()->with('fail','Invalid Credentials.');
+            }
         }
         else{
             return Redirect::back()->with('fail','Please Check Your Information Properly');
