@@ -3,13 +3,9 @@
          <div class="container-fluid ">
              <div class="row justify-content-between align-items-center pb-2">
                  <div class="col-lg-1 col-md-1 col-sm-1 col-1">
-                    <button class="btn my-2" id="menu-btn">Manu</button>
+                    <button class="btn my-2" id="menu-btn">Menu</button>
                  </div>
-                 <div class="col-lg-3 col-md-3 col-sm-12 col-12 pb-2">
-                     <a href="/" class="   text-dark text-decoration-none">
-                         <img class="logo mx-auto d-block" src="{{ asset('img/logo.png') }}" alt="">
-                     </a>
-                 </div>
+                 
                  <div class="col-lg-5 col-md-5 col-sm-5 col-5 ">
                      <form class="  mb-3 mb-lg-0">
                          <input type="search" class="form-control  new-form-control" placeholder="Search..."
@@ -20,11 +16,13 @@
                    @if(Auth::user())
                                     <span id="logged-in-state" class="me-5">
 
+             
+
                                         <div class="dropdown  ">
                                             @if(Auth::user()->image == null)
-                                            <img src="{{ asset('img/profile-image.jpg') }}" class="rounded-circle header-profile-img" alt="..." id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src="{{ asset('img/profile-image.jpg') }}" class="rounded-circle header-profile-img" alt="..." id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
                                             @else
-                                            <img src="{{ asset('uploads/customer/'.Auth::user()->image) }}" class="rounded-circle header-profile-img" alt="..." id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src="{{ asset('uploads/customer/'.Auth::user()->image) }}" class="rounded-circle header-profile-img" alt="..." id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
                                             @endif
 
                                             <ul class="dropdown-menu menu-show" aria-labelledby="dropdownMenuButton1">

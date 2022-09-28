@@ -20,13 +20,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <!--Custom Style CSS for header -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+ 
     <!-- Custom style CSS for Body -->
     <link rel="stylesheet" href="{{ asset('assets/css/style_admin.css') }}">
     
-    <title>US PROJECT </title>
+    <title>3 Nation </title>
 </head>
 
 <body> 
@@ -35,9 +33,7 @@
         @include('admin.include.side_manu')
         <section class="my-container pt-0">
             @include('admin.include.header')
-            <section class="p-4 pt-0">
-
-        
+            <section class="p-4 pt-0"> 
                 @yield('content')
             </section>
         </section>
@@ -59,22 +55,10 @@
             sidebar_shade.classList.toggle("active-shadow")
             container.classList.toggle("active-cont")
         })
-    </script>
-    <!-- Script -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- JQuery Library -->
-    <script src="{{ asset('js/jquery-library.js') }}"></script>
-
-    <!-- Slick Slider JS -->
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
-    <!-- AOS JS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <!-- Custom JS -->
-    <script src="{{ asset('js/script.js') }}"></script>
-
+    </script> 
+  
+ 
+ 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     @stack('custom-scripts')
