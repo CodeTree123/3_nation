@@ -28,7 +28,11 @@ Route::get('/single_product',[FrontendController::class, 'single_product'])->nam
 Route::get('/cart',[FrontendController::class, 'cart'])->name('cart');
 Route::get('/checkout',[FrontendController::class, 'checkout'])->name('checkout');
 Route::get('/about_us',[FrontendController::class, 'about_us'])->name('about_us');
+
 Route::get('/profile',[FrontendController::class, 'profile'])->name('profile');
+Route::get('/change_password',[FrontendController::class, 'change_password'])->name('change_password');
+Route::get('/order',[FrontendController::class, 'order'])->name('order');
+
 Route::get('/privacy_policy',[FrontendController::class, 'privacy_policy'])->name('privacy_policy');
 Route::get('/terms_and_conditions',[FrontendController::class, 'terms_and_conditions'])->name('terms_and_conditions');
 

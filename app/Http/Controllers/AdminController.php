@@ -123,7 +123,7 @@ class AdminController extends Controller
 
         return back()->with('success','Sub Catagory information have been successfully Updated.');
     }
-    
+
 
     public function sub_catagory_delete(Request $request){
 
@@ -144,7 +144,7 @@ class AdminController extends Controller
     }
 
     public function product_add(Request $request){
-        // dd($request->all());
+        // dd($request->product_image);
         $filename='';
         if($request->hasFile('product_image'))
         {
@@ -165,38 +165,51 @@ class AdminController extends Controller
             'prostatus' => $request->p_status,
         ]);
 
-        return back()->with('success','Service information have been successfully Added.');
+        return back()->with('success','Product information have been successfully Added.');
     }
 
     public function product_edit($id){
-        $service = service::find($id);
+        $product = product::find($id);
         return response()->json([
             'status'=>200,
-            'serv' => $service,
+            'pro' => $product,
         ]);
 
     }
 
     public function product_update(Request $request){
-        // dd($request->all());
-        service::find($request->product_id)->update([
-            'subcatagory_id' => $request->sub_cat_id,
-            'service_name' => $request->u_service_name,
-            's_description' => $request->u_s_description,
+//         dd($request->all());
+        $pro_id = product::find($request->product_id);
+        $filename=$pro_id->image;
+        if($request->hasFile('product_image'))
+        {
+            $destination = 'uploads/product/'.$pro_id->image;
+            if(File::exists($destination)){
+                File::delete($destination);
+            }
+            $file= $request->file('product_image');
+            if ($file->isValid()) {
+                $filename="product".date('Ymdhms').'.'.$file->getClientOriginalExtension();
+                $file->storeAs('product',$filename);
+            }
+        }
+        product::find($request->product_id)->update([
+            'subcat_id' => $request->u_sub_cat_id,
+            'product_name' => $request->u_product_name,
+            'description' => $request->u_description,
             'price' => $request->u_price,
-            // 'sc_image' => $filename,
+            'image' => $filename,
         ]);
 
-        return back()->with('success','Sub Catagory information have been successfully Updated.');
+        return back()->with('success','Product information have been successfully Updated.');
     }
 
     public function product_delete(Request $request){
 
-        $del_service_id = $request->deletingId;
-        $del_service_info = service::find($del_service_id);
-        $del_service_info->delete();
+        $del_product_info = product::find($request->deletingId);
+        $del_product_info->delete();
 
-        return back()->with('success','Service information have been successfully Deleted.');
+        return back()->with('success','Product information have been successfully Deleted.');
     }
 
 

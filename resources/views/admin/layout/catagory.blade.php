@@ -8,12 +8,7 @@
         </button>
     </div>
 
-    @if(Session::has('success'))
-    <div class="alert alert-success">{{Session::get('success')}}</div>
-    @endif
-    @if(Session::has('fail'))
-    <div class="alert alert-danger">{{Session::get('fail')}}</div>
-    @endif
+    @include('admin.include.errors')
 
     <table class="table">
   <thead>
@@ -29,7 +24,7 @@
     <tr>
       <th scope="row">{{$key + 1}}</th>
       <td>{{$cat->catagory_name}}</td>
-      <td>{{$cat->branch->branch_name}}</td>
+      <td>{{$cat->branch_name}}</td>
       <td>
         <button class="btn update_cat" value="{{$cat->id}}">Update</button>
         <button class="btn delete_cat" value="{{$cat->id}}">delete</button>
@@ -156,6 +151,11 @@
 @push('custom-scripts')
 <script>
     $(document).ready(function(){
+
+        window.setTimeout(function(){
+            $(".test").alert('close');
+        },2000);
+
         $(document).on('click', '.update_cat',function(){
             var update_id = $(this).val();
             $("#UpdateCatagory").modal('show');

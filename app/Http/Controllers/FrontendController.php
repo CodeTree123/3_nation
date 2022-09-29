@@ -43,6 +43,14 @@ class FrontendController extends Controller
         $user = User::where('id','=',auth()->id())->first();
         return view('profile',compact('user'));
     }
+    public function change_password(){
+        $user = User::where('id','=',auth()->id())->first();
+        return view('profile',compact('user'));
+    }
+    public function order(){
+        $user = User::where('id','=',auth()->id())->first();
+        return view('profile',compact('user'));
+    }
     public function about_us(){
         return view('about_us');
     }

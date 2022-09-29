@@ -6,14 +6,10 @@
         Add Sub Catagory
         </button>
     </div>
-    @if(Session::has('success'))
-    <div class="alert alert-success">{{Session::get('success')}}</div>
-    @endif
-    @if(Session::has('fail'))
-    <div class="alert alert-danger">{{Session::get('fail')}}</div>
-    @endif
 
-    <table class="table">
+    @include('admin.include.errors')
+
+<table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -143,6 +139,11 @@
         //     var cat_id = $(this).val();
         //     alert( cat_id);
         // });
+
+        window.setTimeout(function(){
+            $(".test").alert('close');
+        },2000);
+
         $(document).on('click', '.update_subcat',function(){
             var update_id = $(this).val();
             $("#UpdateSubCatagory").modal('show');
