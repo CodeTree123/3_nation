@@ -3,26 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\branch;
+use App\Models\catagory_info;
+use App\Models\subcatagory_info;
+use App\Models\product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
     public function index(){
-        return view('index');
+        $branches = branch::all();
+        $catagories = catagory_info::all();
+        $subcatagories = subcatagory_info::all();
+        return view('index',compact('branches','catagories','subcatagories'));
     }
 
     public function admin_index(){
         return view('admin.layout.admin_index');
     }
     public function header(){
+        // $branches = branch::all();
+        // $catagories = catagory_info::all();
+        // $subcatagories = subcatagory_info::all();
         return view('include.header');
     }
     public function footer(){
         return view('include.footer');
     }
-    public function shop_main_category(){
-        return view('shop_main_category');
+    public function shop_main_category($id){
+        $branches = branch::all();
+        $catagories = catagory_info::all();
+        $subcatagories = subcatagory_info::all();
+        $subcat = subcatagory_info::Join('catagory_infos','subcatagory_infos.cat_id','=','catagory_infos.id')->Join('branches','catagory_infos.branch_id','=','branches.id')->where('subcatagory_infos.id','=',$id)->first(['subcatagory_infos.subcatagory_name','catagory_infos.catagory_name','branches.branch_name']);
+        $products = product::where('subcat_id','=',$id)->get();
+        return view('shop_main_category',compact('branches','catagories','subcatagories','subcat','products'));
     }
     public function cart_list(){
         return view('cart_list');
@@ -31,7 +46,10 @@ class FrontendController extends Controller
         return view('checkout');
     }
     public function login(){
-        return view('login');
+        $branches = branch::all();
+        $catagories = catagory_info::all();
+        $subcatagories = subcatagory_info::all();
+        return view('login',compact('branches','catagories','subcatagories'));
     }
     public function register(){
         return view('register');

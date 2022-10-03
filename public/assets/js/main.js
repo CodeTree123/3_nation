@@ -1022,7 +1022,7 @@
 	  33. Infinite Scroll js
 	  -------------------------------------*/
 	function load_more(){
-        $(".product-load-more .item").slice(0, 16).show();
+        $(".product-load-more .item").slice(0, 4).show();
         $(".loadMore").on('click', function (e) {
             e.preventDefault();
             $(".product-load-more .item:hidden").slice(0, 4).slideDown();

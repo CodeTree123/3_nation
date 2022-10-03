@@ -10,14 +10,14 @@
   <meta name="description" content="description">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicon -->
-  <link rel="shortcut icon" href="assets/images/final_logo_icon.png" />
+  <link rel="shortcut icon" href="{{asset('assets/images/final_logo_icon.png') }}"/>
   <!-- Plugins CSS -->
-  <link rel="stylesheet" href="assets/css/plugins.css">
+  <link rel="stylesheet" href="{{asset('assets/css/plugins.css') }}">
   <!-- Bootstap CSS -->
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css') }}">
   <!-- Main Style CSS -->
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="stylesheet" href="{{asset('assets/css/style.css') }}">
+  <link rel="stylesheet" href="{{asset('assets/css/responsive.css') }}">
 </head>
  
 
@@ -88,7 +88,7 @@
           <!--Desktop Logo-->
           <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
             <a href="/">
-              <img src="assets/images/logo_final.png" alt="3 Nation BD" title="3 Nation BD" />
+              <img src="{{asset('assets/images/logo_final.png')}}" alt="3 Nation BD" title="3 Nation BD" />
             </a>
           </div>
           <!--End Desktop Logo-->
@@ -106,277 +106,36 @@
                 <li class="lvl1 parent megamenu">
                   <a href="/">Home </a>
                 </li>
-                <li class="lvl1 parent megamenu"><a href="#">Men <i class="anm anm-angle-down-l"></i></a>
+                <!-- Branch -->
+                @foreach($branches as $branch)
+                <li class="lvl1 parent megamenu">
+                  <a href="#">{{$branch->branch_name}} <i class="anm anm-angle-down-l"></i></a>
                   <div class="megamenu style4">
+
                     <ul class="grid grid--uniform mmWrapper">
-
+                      @foreach($catagories as $catagory)
+                      @if($catagory->branch_id == $branch->id)
                       <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                        <a href="#" class="site-nav lvl-1">Men Shirts</a>
-                        <ul class="subLinks">
-                          <li class="lvl-2">
-                            <a href="" class="site-nav lvl-2">Casual Shirt Full
-                            </a>
-                          </li>
-                          <li class="lvl-2">
-                            <a href="" class="site-nav lvl-2">
-                              Casual Shirt Half
-                            </a>
-                          </li>
-                          <li class="lvl-2">
-                            <a href="site-nav lvl-2">
-                              Formal Shirt Full
-                            </a>
-                          </li>
-                          <li class="lvl-2">
-                            <a href="" class="site-nav lvl-2">
-                              Slim Fit Shirt
-                            </a>
-                          </li>
-                          <li class="lvl-2">
-                            <a href="" class="site-nav lvl-2">
-                              Fatua
-                            </a>
-                          </li>
-                        </ul>
+                        <p class="site-nav lvl-1 mb-0">{{$catagory->catagory_name}}</p>
 
-                        <a href="#" class="site-nav lvl-1">Men Pants</a>
                         <ul class="subLinks">
+                          @foreach($subcatagories as $subcatagory)
+                          @if($subcatagory->cat_id == $catagory->id)
                           <li class="lvl-2">
-                            <a href="" class="site-nav lvl-2">
-                              Denim/Jeans
+                            <a href="{{route('shop_main_category',[$subcatagory->id])}}" class="site-nav lvl-2">
+                              {{$subcatagory->subcatagory_name}}
                             </a>
                           </li>
-                          <li class="lvl-2">
-                            <a href="" class="site-nav lvl-2">
-                              Short Pant
-                            </a>
-                          </li>
-                          <li class="lvl-2">
-                            <a href="" class="site-nav lvl-2">
-                              Cotton Pant
-                            </a>
-                          </li>
-                          <li class="lvl-2">
-                            <a href="" class="site-nav lvl-2">
-                              Trouser
-                            </a>
-                          </li>
+                          @endif
+                          @endforeach
                         </ul>
                       </li>
-                      <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                        <a href="#" class="site-nav lvl-1">Accessories</a>
-                        <ul class="subLinks">
-                          <li class="lvl-2">
-                            <a href="" class="site-nav lvl-2">
-                              Sneakers
-                            </a>
-                          </li>
-                          <li class="lvl-2">
-                            <a href="" class="site-nav lvl-2">
-                              Converse
-                            </a>
-                          </li>
-
-                        </ul>
-                      </li>
-                      <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                        <a href="#" class="site-nav lvl-1">T-SHIRT & POLO SHIRTS</a>
-                        <ul class="subLinks">
-
-                          <li class="lvl-2">
-                            <a href="" class="site-nav lvl-2">
-                              T-Shirt Half
-                            </a>
-                          </li>
-                          <li class="lvl-2">
-                            <a href="" class="site-nav lvl-2">
-                              Polo Shirt Half
-                            </a>
-                          </li>
-
-                        </ul>
-                      </li>
-                      <li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#" class="site-nav lvl-1">MEN PANJABI'S</a>
-                        <ul class="subLinks">
-
-                          <li class="lvl-2">
-                            <a href="" class="site-nav lvl-2">
-                              Mens Kabli
-                            </a>
-                          </li>
-                          <li class="lvl-2">
-                            <a href="" class="site-nav lvl-2">
-                              Regular Fit Panjabi
-                            </a>
-                          </li>
-                          <li class="lvl-2">
-                            <a href="" class="site-nav lvl-2">
-                              Mens Paijama
-                            </a>
-                          </li>
-                          <li class="lvl-2">
-                            <a href="" class="site-nav lvl-2">
-                              Exclusive Panjabi
-                            </a>
-                          </li>
-                          <li class="lvl-2">
-                            <a href="" class="site-nav lvl-2">
-                              Slim Fit Panjabi
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-
+                      @endif
+                      @endforeach
                     </ul>
                   </div>
                 </li>
-                <li class="lvl1 parent megamenu">
-                  <a href="#">Women </a>
-                  <div class="megamenu style2">
-                    <ul class="grid mmWrapper">
-                      <li class="grid__item one-whole">
-                        <ul class="grid">
-                          <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                            <a href="#" class="site-nav lvl-1">READY-TO-WEAR</a>
-                            <ul class="subLinks">
-                              <li class="lvl-2">
-                                <a href="/shop_main_category" class="site-nav lvl-2">
-                                  Tops Long
-                                </a>
-                              </li>
-                              <li class="lvl-2">
-                                <a href="" class="site-nav lvl-2">
-                                  Ladies Pant
-                                </a>
-                              </li>
-                              <li class="lvl-2">
-                                <a href="" class="site-nav lvl-2">
-                                  Tops Short
-                                </a>
-                              </li>
-                              <li class="lvl-2">
-                                <a href="" class="site-nav lvl-2">
-                                  Ladies Jeans
-                                </a>
-                              </li>
-                              <li class="lvl-2">
-                                <a href="" class="site-nav lvl-2">
-                                  Leggins
-                                </a>
-                              </li>
-                              <li class="lvl-2">
-                                <a href="" class="site-nav lvl-2">Ladies Palazzo
-                                </a>
-                              </li>
-                            </ul>
-                          </li>
-                          <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                            <a href="#" class="site-nav lvl-1">WOMEN SHIRTS</a>
-                            <ul class="subLinks">
-                              <li class="lvl-2">
-                                <a href="#" class="site-nav lvl-2">
-                                  Ladies Fatua
-                                </a>
-                              </li>
-                              <li class="lvl-2">
-                                <a href="" class="site-nav lvl-2">
-                                  Ladies Shirt
-                                </a>
-                              </li>
-
-                            </ul>
-                          </li>
-                          <li class="grid__item lvl-1 col-md-3 col-lg-3"><a href="#" class="site-nav lvl-1">LADIES TOPS 2PCS/3PCS</a>
-                            <ul class="subLinks">
-                              <li class="lvl-2">
-                                <a href="#" class="site-nav lvl-2">
-                                  LADIES TOPS 2PCS/3PCS
-                                </a>
-                              </li>
-
-                            </ul>
-                          </li>
-
-                        </ul>
-                      </li>
-                      <!-- <li class="grid__item large-up--one-whole imageCol"><a href="#"><img src="assets/images/megamenu-bg2.jpg" alt=""></a></li> -->
-                    </ul>
-                  </div>
-                </li>
-                <li class="lvl1 parent megamenu">
-                  <a href="#">Kids </a>
-                  <div class="megamenu style2">
-                    <ul class="grid mmWrapper">
-                      <li class="grid__item one-whole">
-                        <ul class="grid">
-                          <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                            <a href="#" class="site-nav lvl-1">KIDS BOY</a>
-                            <ul class="subLinks">
-                              <li class="lvl-2">
-                                <a href="#" class="site-nav lvl-2">
-                                  Kids KABLI (1-4 years)
-                                </a>
-                              </li>
-                              <li class="lvl-2">
-                                <a href="#" class="site-nav lvl-2">
-                                  Kids KABLI (5 years & above)
-                                </a>
-                              </li>
-                              <li class="lvl-2">
-                                <a href="#" class="site-nav lvl-2">
-                                  Kids Panjabi
-                                </a>
-                              </li>
-                              <li class="lvl-2">
-                                <a href="#" class="site-nav lvl-2">
-                                  Kids Polo Shirt Half (1-4 years)
-                                </a>
-                              </li>
-                              <li class="lvl-2">
-                                <a href="#" class="site-nav lvl-2">
-                                  Kids Polo Shirt Half (5 years & above)
-                                </a>
-                              </li>
-                              <li class="lvl-2">
-                                <a href="#" class="site-nav lvl-2">
-                                  Kids Shirt Full (1-4 years)
-                                </a>
-                              </li>
-                              <li class="lvl-2">
-                                <a href="#" class="site-nav lvl-2">
-                                  Kids Shirt Full (5 years & above)
-                                </a>
-                              </li>
-                            </ul>
-
-                          </li>
-                          <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                            <a href="#" class="site-nav lvl-1">KIDS GIRL</a>
-                            <ul class="subLinks">
-                              <li class="lvl-2">
-                                <a href="#" class="site-nav lvl-2">
-                                  Kids Frock (1-4 years)
-                                </a>
-                              </li>
-                              <li class="lvl-2">
-                                <a href="#" class="site-nav lvl-2">
-                                  Kids Frock (5 years & above)
-                                </a>
-                              </li>
-
-
-                            </ul>
-
-                          </li>
-
-
-                        </ul>
-                      </li>
-                      <!-- <li class="grid__item large-up--one-whole imageCol"><a href="#"><img src="assets/images/megamenu-bg2.jpg" alt=""></a></li> -->
-                    </ul>
-                  </div>
-                </li>
-
+                @endforeach
             </nav>
             <!--End Desktop Menu-->
           </div>

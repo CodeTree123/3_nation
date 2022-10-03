@@ -23,14 +23,15 @@ Route::get('/',[FrontendController::class, 'index'])->name('index');
 
 Route::get('/header',[FrontendController::class, 'header'])->name('header');
 Route::get('/footer',[FrontendController::class, 'footer'])->name('footer');
-Route::get('/shop_main_category',[FrontendController::class, 'shop_main_category'])->name('shop_main_category');
+// Route::get('/shop_main_category/{id}',[FrontendController::class, 'shop_main_category'])->name('shop_main_category');
+Route::get('/shop_main_category/{id}',[FrontendController::class, 'shop_main_category'])->name('shop_main_category');
 Route::get('/single_product',[FrontendController::class, 'single_product'])->name('single_product');
 Route::get('/cart',[FrontendController::class, 'cart'])->name('cart');
 Route::get('/checkout',[FrontendController::class, 'checkout'])->name('checkout');
 Route::get('/about_us',[FrontendController::class, 'about_us'])->name('about_us');
 
 Route::get('/profile',[FrontendController::class, 'profile'])->name('profile');
-Route::get('/change_password',[FrontendController::class, 'change_password'])->name('change_password');
+Route::get('/change_password',[FrontendController::class, 'change_password'])->name('change_password_view');
 Route::get('/order',[FrontendController::class, 'order'])->name('order');
 
 Route::get('/privacy_policy',[FrontendController::class, 'privacy_policy'])->name('privacy_policy');

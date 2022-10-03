@@ -1190,7 +1190,7 @@ textarea:-ms-input-placeholder {
         margin-bottom: 25px;
     }
 
-    #siteNav > li .megamenu li.lvl-1 a.lvl-1 {
+    #siteNav > li .megamenu li.lvl-1 p.lvl-1 {
         color: #000;
         font-size: 14px;
         text-transform: uppercase;
