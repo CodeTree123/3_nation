@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('product_name')->nullable();
             $table->string('description')->nullable();
             $table->string('price')->nullable();
-            $table->string('image')->nullable();
+            $table->string('m_image')->nullable();
+            $table->string('h_image')->nullable();
             $table->string('prostatus')->nullable();
             $table->timestamps();
         });

@@ -9,34 +9,10 @@ use App\Models\catagory_info;
 use App\Models\subcatagory_info;
 use App\Models\product;
 use File;
+use Image;
 
 class AdminController extends Controller
 {
-    //
-    // public function shop_index(){
-    //     return view('shop_admin.layout.shop_index');
-    // }
-//shop Profile Update
-    // public function shop_edit_profile(Request $request){
-    //     // dd($request->all());
-    //     $shop= shop_info::where('u_id','=',$request->s_id)->update([
-    //         'b_legal_name' => $request->b_legal_name,
-    //         'b_dba' => $request->b_dba,
-    //         'street_number_b' => $request->street_number_b,
-    //         'apt_b' => $request->apt_b,
-    //         'city_b' => $request->city_b,
-    //         'state_b' => $request->state_b,
-    //         'zip_b' => $request->zip_b,
-    //         'street_number_c' => $request->street_number_c,
-    //         'apt_c' => $request->apt_c,
-    //         'city_c' => $request->city_c,
-    //         'state_c' => $request->state_c,
-    //         'zip_c' => $request->zip_c
-    //     ]);
-
-    //     return back()->with('success','Shop information have been successfully Updated.');
-
-    // }
     public function branch(){
         $branchs = branch::all();
         return view('admin.layout.branch',compact('branchs'));
@@ -144,24 +120,37 @@ class AdminController extends Controller
     }
 
     public function product_add(Request $request){
-        // dd($request->product_image);
+//         dd($request->product_image,$request->product_image1);
         $filename='';
+        $filename1='';
         if($request->hasFile('product_image'))
         {
-
             $file= $request->file('product_image');
             if ($file->isValid()) {
                 $filename="product".date('Ymdhms').'.'.$file->getClientOriginalExtension();
-                $file->storeAs('product',$filename);
+                Image::make($file->getRealPath())->resize(1075, 1500)->save(base_path("public/uploads/product/" . $filename), 100);
+//                $file->storeAs('product',$filename);
             }
         }
+
+        if($request->hasFile('product_image1'))
+        {
+            $file1= $request->file('product_image1');
+            if ($file1->isValid()) {
+                $filename1="product".date('Ymdhms').rand(1,100).'.'.$file1->getClientOriginalExtension();
+                Image::make($file1->getRealPath())->resize(1075, 1500)->save(base_path("public/uploads/product/" . $filename1), 100);
+//                $file->storeAs('product',$filename);
+            }
+        }
+
         // dd($filename);
         product::create([
             'subcat_id' => $request->subcat_id,
             'product_name' => $request->product_name,
             'description' => $request->description,
             'price' => $request->price,
-            'image' => $filename,
+            'm_image' => $filename,
+            'h_image' => $filename1,
             'prostatus' => $request->p_status,
         ]);
 
@@ -180,31 +169,60 @@ class AdminController extends Controller
     public function product_update(Request $request){
 //         dd($request->all());
         $pro_id = product::find($request->product_id);
-        $filename=$pro_id->image;
+        $filename=$pro_id->m_image;
+        $filename1=$pro_id->h_image;
         if($request->hasFile('product_image'))
         {
-            $destination = 'uploads/product/'.$pro_id->image;
+            $destination = 'uploads/product/'.$pro_id->m_image;
             if(File::exists($destination)){
                 File::delete($destination);
             }
             $file= $request->file('product_image');
             if ($file->isValid()) {
                 $filename="product".date('Ymdhms').'.'.$file->getClientOriginalExtension();
-                $file->storeAs('product',$filename);
+                Image::make($file->getRealPath())->resize(1075, 1500)->save(base_path("public/uploads/product/" . $filename), 100);
+
+//                $file->storeAs('product',$filename);
             }
         }
+
+        if($request->hasFile('product_image1'))
+        {
+            $destination = 'uploads/product/'.$pro_id->h_image;
+            if(File::exists($destination)){
+                File::delete($destination);
+            }
+            $file1= $request->file('product_image1');
+            if ($file1->isValid()) {
+                $filename1="product".date('Ymdhms').rand(1,100).'.'.$file1->getClientOriginalExtension();
+                Image::make($file1->getRealPath())->resize(1075, 1500)->save(base_path("public/uploads/product/" . $filename1), 100);
+//                $file->storeAs('product',$filename);
+            }
+        }
+
         product::find($request->product_id)->update([
             'subcat_id' => $request->u_sub_cat_id,
             'product_name' => $request->u_product_name,
             'description' => $request->u_description,
             'price' => $request->u_price,
-            'image' => $filename,
+            'm_image' => $filename,
+            'h_image' => $filename1,
         ]);
 
         return back()->with('success','Product information have been successfully Updated.');
     }
 
     public function product_delete(Request $request){
+
+        $pro_id = product::find($request->deletingId);
+        $destination = 'uploads/product/'.$pro_id->m_image;
+        $destination1 = 'uploads/product/'.$pro_id->h_image;
+        if(File::exists($destination)){
+            File::delete($destination);
+        }
+        if(File::exists($destination1)){
+            File::delete($destination1);
+        }
 
         $del_product_info = product::find($request->deletingId);
         $del_product_info->delete();

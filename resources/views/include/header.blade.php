@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="{{asset('assets/css/style.css') }}">
   <link rel="stylesheet" href="{{asset('assets/css/responsive.css') }}">
 </head>
- 
+
 
 
 
@@ -107,6 +107,11 @@
                   <a href="/">Home </a>
                 </li>
                 <!-- Branch -->
+                  @php
+                      $branches = branches() ;
+                      $catagories = catagories();
+                      $subcatagories = subcatagories();
+                  @endphp
                 @foreach($branches as $branch)
                 <li class="lvl1 parent megamenu">
                   <a href="#">{{$branch->branch_name}} <i class="anm anm-angle-down-l"></i></a>
@@ -241,7 +246,7 @@
                 <li><a href="" class="site-nav"> Casual Shirt Half</a></li>
                 <li><a href="" class="site-nav"> Formal Shirt Full </a></li>
                 <li><a href="" class="site-nav"> Slim Fit Shirt</a></li>
-                <li><a href="" class="site-nav"> Fatua</a></li> 
+                <li><a href="" class="site-nav"> Fatua</a></li>
               </ul>
             </li>
             <li><a href="#" class="site-nav">Men Pants<i class="anm anm-plus-l"></i></a>
@@ -249,19 +254,19 @@
                 <li><a href="" class="site-nav"> Denim/Jeans</a></li>
                 <li><a href="" class="site-nav"> Short Pant</a></li>
                 <li><a href="" class="site-nav"> Cotton Pant</a></li>
-                <li><a href="" class="site-nav"> Trouser</a></li> 
+                <li><a href="" class="site-nav"> Trouser</a></li>
               </ul>
             </li>
             <li><a href="#" class="site-nav">Accessories<i class="anm anm-plus-l"></i></a>
               <ul>
                 <li><a href="home11-grid.html" class="site-nav"> Sneakers</a></li>
-                <li><a href="home5-cosmetic.html" class="site-nav"> Converse</a></li> 
+                <li><a href="home5-cosmetic.html" class="site-nav"> Converse</a></li>
               </ul>
             </li>
             <li><a href="#" class="site-nav">T-SHIRT & POLO SHIRTS<i class="anm anm-plus-l"></i></a>
               <ul>
                 <li><a href="home13-" class="site-nav"> T-Shirt Half </a></li>
-                <li><a href="#" class="site-nav"> Polo Shirt Half </a></li> 
+                <li><a href="#" class="site-nav"> Polo Shirt Half </a></li>
               </ul>
             </li>
             <li><a href="#" class="site-nav">MEN PANJABI'S<i class="anm anm-plus-l"></i></a>
@@ -270,7 +275,7 @@
                 <li><a href="#" class="site-nav"> Regular Fit Panjabi </a></li>
                 <li><a href="#" class="site-nav"> Mens Paijama</a></li>
                 <li><a href="#" class="site-nav"> Exclusive Panjabi</a></li>
-                <li><a href="#" class="site-nav"> Slim Fit Panjabi </a></li> 
+                <li><a href="#" class="site-nav"> Slim Fit Panjabi </a></li>
               </ul>
             </li>
           </ul>
@@ -284,13 +289,13 @@
                 <li><a href=" " class="site-nav"> Tops Short</a></li>
                 <li><a href="#" class="site-nav"> Ladies Jeans</a></li>
                 <li><a href="#" class="site-nav"> Leggins</a></li>
-                <li><a href="#" class="site-nav">Ladies Palazzo</a></li> 
+                <li><a href="#" class="site-nav">Ladies Palazzo</a></li>
               </ul>
             </li>
             <li><a href="#" class="site-nav">WOMEN SHIRTS<i class="anm anm-plus-l"></i></a>
               <ul>
                 <li><a href="#" class="site-nav"> Ladies Fatua </a></li>
-                <li><a href="#" class="site-nav"> Ladies Shirt</a></li> 
+                <li><a href="#" class="site-nav"> Ladies Shirt</a></li>
               </ul>
             </li>
           </ul>
@@ -310,10 +315,10 @@
             <li><a href="#" class="site-nav">KIDS GIRL<i class="anm anm-plus-l"></i></a>
               <ul>
                 <li><a href="#" class="site-nav"> Kids Frock (1-4 years)</a></li>
-                <li><a href="#" class="site-nav"> Kids Frock (5 years & above</a></li> 
+                <li><a href="#" class="site-nav"> Kids Frock (5 years & above</a></li>
               </ul>
             </li>
-            
+
           </ul>
         </li>
         <!-- <li class="lvl1 parent megamenu"><a href="about-us.html">Pages <i class="anm anm-plus-l"></i></a>
@@ -339,10 +344,10 @@
                 <li><a href="lookbook1.html" class="site-nav">Style 1</a></li>
                 <li><a href="lookbook2.html" class="site-nav last">Style 2</a></li>
               </ul>
-            </li> 
+            </li>
           </ul>
         </li> -->
-         
+
       </ul>
     </div>
     <!--End Mobile Menu-->

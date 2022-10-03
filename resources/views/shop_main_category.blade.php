@@ -204,10 +204,18 @@
                                     <!-- start product image -->
                                     <a href="#">
                                         <!-- image -->
-                                        <img class="primary blur-up lazyload" data-src="{{asset('/uploads/product/'.$product->image)}}" src="{{asset('/uploads/product/'.$product->image)}}" alt="image" title="product">
+                                        <img class="primary blur-up lazyload" data-src="{{asset('/uploads/product/'.$product->m_image)}}" src="{{asset('/uploads/product/'.$product->m_image)}}" alt="image" title="product">
                                         <!-- End image -->
                                         <!-- Hover image -->
+                                        @if($product->h_image == null)
                                         <img class="hover blur-up lazyload" data-src="{{asset('assets/images/product-images/product-image1-1.jpg')}}" src="{{asset('assets/images/product-images/product-image1-1.jpg')}}" alt="image" title="product">
+                                        @else
+                                        <img class="hover blur-up lazyload" data-src="{{asset('/uploads/product/'.$product->h_image)}}" src="{{asset('/uploads/product/'.$product->h_image)}}" alt="image" title="product">
+                                        @endif
+                                        <!-- End hover image -->
+
+                                        <!-- Hover image -->
+{{--                                        <img class="hover blur-up lazyload" data-src="{{asset('assets/images/product-images/product-image1-1.jpg')}}" src="{{asset('assets/images/product-images/product-image1-1.jpg')}}" alt="image" title="product">--}}
                                         <!-- End hover image -->
 
                                     </a>
@@ -255,7 +263,7 @@
                                 <!-- countdown end -->
                             </div>
                             @endforeach
-                            
+
                         </div>
                     </div>
                 </div>

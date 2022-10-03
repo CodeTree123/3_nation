@@ -31,15 +31,15 @@
                     <td>{{$product->product_name}}</td>
                     <td>{{$product->subcatagory_name}}</td>
                     <td>{{$product->catagory_name}}</td>
-                    <td>{{$product->catagory_name}}</td>
+                    <td>{{$product->branch_name}}</td>
                     <td>
-                        @if($product->image == null)
+                        @if($product->m_image == null)
                             <img src="{{ asset('img/service.jpg')}}" class="shop_image_view" >
                         @else
-                            <img src="{{asset('/uploads/product/'.$product->image)}}" class="shop_image_view" >
+                            <img src="{{asset('/uploads/product/'.$product->m_image)}}" class="shop_image_view" >
                         @endif
                     </td>
-                    <td>{{$product->s_description}}</td>
+                    <td>{{$product->description}}</td>
                     <td>{{$product->price}}</td>
                     <td>
                         <button class="btn update_product" value="{{$product->id}}">Update</button>
@@ -88,6 +88,10 @@
                         <label for="formFile" class="form-label">Product Image</label>
                         <input class="form-control" type="file" id="formFile" name="product_image">
                     </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Product Image</label>
+                        <input class="form-control" type="file" id="formFile" name="product_image1">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Add</button>
@@ -134,6 +138,10 @@
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Product Image</label>
                         <input class="form-control" type="file" id="formFile" name="product_image">
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Product Image</label>
+                        <input class="form-control" type="file" id="formFile" name="product_image1">
                     </div>
                 </div>
                 <div class="modal-footer">
