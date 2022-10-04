@@ -15,7 +15,8 @@
                 <div class="product-details-img">
                   <div class="zoompro-wrap product-zoom-right pl-20">
                     <div class="zoompro-span">
-                      <img class="zoompro blur-up lazyload" data-zoom-image="assets/images/product-detail-page/product-with-right-thumbs-1.jpg" alt="" src="assets/images/product-detail-page/product-with-right-thumbs-1.jpg" />
+                    <!-- 'uploads/product/'.$product->m_image -->
+                      <img class="zoompro blur-up lazyload" data-zoom-image="{{asset('uploads/product/'.$product->m_image)}}" alt="" src="{{asset('uploads/product/'.$product->m_image)}}" />
                     </div>
                     <div class="product-buttons">
                       <a href="https://www.youtube.com/watch?v=93A2jOW5Mog" class="btn popup-video" title="View Video"><i class="icon anm anm-play-r" aria-hidden="true"></i></a>
@@ -23,62 +24,81 @@
                     </div>
                   </div>
                   <div class="lightboximages">
-                    <a href="assets/images/product-detail-page/product-with-right-thumbs-1.jpg" data-size="1462x2048"></a>
-                    <a href="assets/images/product-detail-page/product-with-right-thumbs-2.jpg" data-size="1462x2048"></a>
-                    <a href="assets/images/product-detail-page/product-with-right-thumbs-3.jpg" data-size="1462x2048"></a>
-                    <a href="assets/images/product-detail-page/product-with-right-thumbs-4.jpg" data-size="1462x2048"></a>
-                    <a href="assets/images/product-detail-page/product-with-right-thumbs-5.jpg" data-size="1462x2048"></a>
-                    <a href="assets/images/product-detail-page/product-with-right-thumbs-6.jpg" data-size="1462x2048"></a>
+                    <a href="{{asset('uploads/product/'.$product->m_image)}}" data-size="1462x2048"></a>
+                    <a href="{{asset('uploads/product/'.$product->h_image)}}" data-size="1462x2048"></a>
+                    @php 
+                      $others_imgs = $product->other_images;
+                      $others_imgs = explode(",",$others_imgs);
+                    @endphp
+
+                    @foreach($others_imgs as $other_img)
+                    <a href="{{asset('uploads/product/'.$other_img)}}" data-size="1462x2048"></a>
+                    @endforeach
+                    {{--<a href="{{asset('assets/images/product-detail-page/product-with-right-thumbs-4.jpg')}}" data-size="1462x2048"></a>
+                    <a href="{{asset('assets/images/product-detail-page/product-with-right-thumbs-5.jpg')}}" data-size="1462x2048"></a>
+                    <a href="{{asset('assets/images/product-detail-page/product-with-right-thumbs-6.jpg')}}" data-size="1462x2048"></a>--}}
                   </div>
                   <div class="product-thumb">
                     <div id="gallery" class="product-dec-slider-2 product-tab-left">
-                      <a data-image="assets/images/product-detail-page/product-with-right-thumbs-1.jpg" data-zoom-image="assets/images/product-detail-page/product-with-right-thumbs-1.jpg" class="slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true" tabindex="-1">
-                        <img class="blur-up lazyload" src="assets/images/product-detail-page/product-with-right-thumbs-1.jpg" alt="" />
+                      <a data-image="{{asset('uploads/product/'.$product->m_image)}}" data-zoom-image="{{asset('uploads/product/'.$product->m_image)}}" class="slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true" tabindex="-1">
+                        <img class="blur-up lazyload" src="{{asset('uploads/product/'.$product->m_image)}}" alt="" />
                       </a>
-                      <a data-image="assets/images/product-detail-page/product-with-right-thumbs-2.jpg" data-zoom-image="assets/images/product-detail-page/product-with-right-thumbs-2.jpg" class="slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" tabindex="-1">
-                        <img class="blur-up lazyload" src="assets/images/product-detail-page/product-with-right-thumbs-2.jpg" alt="" />
+                      <a data-image="{{asset('uploads/product/'.$product->h_image)}}" data-zoom-image="{{asset('uploads/product/'.$product->h_image)}}" class="slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" tabindex="-1">
+                        <img class="blur-up lazyload" src="{{asset('uploads/product/'.$product->h_image)}}" alt="" />
                       </a>
-                      <a data-image="assets/images/product-detail-page/product-with-right-thumbs-3.jpg" data-zoom-image="assets/images/product-detail-page/product-with-right-thumbs-3.jpg" class="slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" tabindex="-1">
-                        <img class="blur-up lazyload" src="assets/images/product-detail-page/product-with-right-thumbs-3.jpg" alt="" />
+                      @php 
+                        $other_imgs = $product->other_images;
+                        $other_imgs = explode(",",$other_imgs);
+                      @endphp
+                      @foreach($other_imgs as $key=>$other_img)
+                      <a data-image="{{asset('uploads/product/'.$other_img)}}" data-zoom-image="{{asset('uploads/product/'.$other_img)}}" class="slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" tabindex="-1">
+                        <img class="blur-up lazyload" src="{{asset('uploads/product/'.$other_img)}}" alt="" />
                       </a>
-                      <a data-image="assets/images/product-detail-page/product-with-right-thumbs-4.jpg" data-zoom-image="assets/images/product-detail-page/product-with-right-thumbs-4.jpg" class="slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" tabindex="-1">
-                        <img class="blur-up lazyload" src="assets/images/product-detail-page/product-with-right-thumbs-4.jpg" alt="" />
-                      </a>
-                      <a data-image="assets/images/product-detail-page/product-with-right-thumbs-5.jpg" data-zoom-image="assets/images/product-detail-page/product-with-right-thumbs-5.jpg" class="slick-slide slick-cloned" data-slick-index="0" aria-hidden="true" tabindex="-1">
-                        <img class="blur-up lazyload" src="assets/images/product-detail-page/product-with-right-thumbs-5.jpg" alt="" />
-                      </a>
-                      <a data-image="assets/images/product-detail-page/product-with-right-thumbs-6.jpg" data-zoom-image="assets/images/product-detail-page/product-with-right-thumbs-6.jpg" class="slick-slide slick-cloned" data-slick-index="1" aria-hidden="true" tabindex="-1">
-                        <img class="blur-up lazyload" src="assets/images/product-detail-page/product-with-right-thumbs-6.jpg" alt="" />
-                      </a>
+                      @endforeach
+                     
                     </div>
                   </div>
                 </div>
                 <div class="product-information">
                   <div class="product-single__meta">
-                    <h1 class="product-single__title">Women Dress</h1>
+                    <h1 class="product-single__title">{{$product->product_name}}</h1>
 
                     <div class="prInfoRow">
-                      <div class="product-stock"> <span class="instock ">In Stock</span> <span class="outstock hide">Unavailable</span> </div>
-                      <div class="product-sku">SKU: <span class="variant-sku">19115-rdxs</span></div>
+                      <div class="product-stock"> 
+                        @if($product->quantity != 0)
+                        <span class="instock ">In Stock</span>
+                        @else 
+                        <span class="outstock">Unavailable</span> 
+                        @endif
+                      </div>
+                      <div class="product-sku">SKU: <span class="variant-sku">{{$product->product_code}}</span>
+                      </div>
 
                     </div>
                     <p class="product-single__price product-single__price-product-template">
                       <span class="visually-hidden">Regular price</span>
                       <span class="product-price__price product-price__price-product-template">
-                        <span id="ProductPrice-product-template"><span class="money">Tk.550.00</span></span>
+                        <span id="ProductPrice-product-template"><span class="money">Tk.{{$product->price}}</span></span>
                       </span>
                     </p>
                     <div class="product-single__description rte">
-                      <p> Small Description about product Small Description about product Small Description about product Small Description about product Small Description about product Small Description about product Small Description about product Small Description about product Small Description about product Small Description about product Small Description about product Small Description about product Small Description about product Small Description about product Small Description about product Small Description about product Small Description about product Small Description about product Small Description about product Small Description about product</p>
+                      <p> {{$product->description}}</p>
                     </div>
                     <form method="post" action="http://annimexweb.com/cart/add" id="product_form_10508262282" accept-charset="UTF-8" class="product-form product-form-product-template hidedropdown" enctype="multipart/form-data">
                       <div class="swatch clearfix swatch-0 option1" data-option-index="0">
                         <div class="product-form__item">
-                          <label class="header">Color: <span class="slVariant">Red</span></label>
-                          <div data-value="Black" class="swatch-element color black available">
-                            <input class="swatchInput" id="swatch-0-black" type="radio" name="option-0" value="Black"><label class="swatchLbl color small" for="swatch-0-black" style="background-color:black;" title="Black"></label>
+                          <label class="header">Color: </label>
+                          @php 
+                            $pro_colors = $product->color;
+                            $pro_colors = explode(",",$pro_colors);
+                          @endphp
+                          @foreach($pro_colors as $color)
+                          <div data-value="{{$color}}" class="swatch-element color {{$color}} available">
+                            <input class="swatchInput" id="swatch-0-{{$color}}" type="radio" name="size" value="{{$color}}">
+                            <label class="swatchLbl color small" for="swatch-0-{{$color}}" title="Black">{{$color}}</label>
                           </div>
-                          <div data-value="Maroon" class="swatch-element color maroon available">
+                          @endforeach
+                          <!-- <div data-value="Maroon" class="swatch-element color maroon available">
                             <input class="swatchInput" id="swatch-0-maroon" type="radio" name="option-0" value="Maroon"><label class="swatchLbl color small" for="swatch-0-maroon" style="background-color:maroon;" title="Maroon"></label>
                           </div>
                           <div data-value="Blue" class="swatch-element color blue available">
@@ -86,17 +106,23 @@
                           </div>
                           <div data-value="Dark Green" class="swatch-element color dark-green available">
                             <input class="swatchInput" id="swatch-0-dark-green" type="radio" name="option-0" value="Dark Green"><label class="swatchLbl color small" for="swatch-0-dark-green" style="background-color:darkgreen;" title="Dark Green"></label>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
                       <div class="swatch clearfix swatch-1 option2" data-option-index="1">
                         <div class="product-form__item">
-                          <label class="header">Size: <span class="slVariant">XS</span></label>
-                          <div data-value="XS" class="swatch-element xs available">
-                            <input class="swatchInput" id="swatch-1-xs" type="radio" name="option-1" value="XS">
-                            <label class="swatchLbl medium" for="swatch-1-xs" title="XS">XS</label>
+                          <label class="header">Size:</label>
+                          @php 
+                            $sizes = $product->size;
+                            $sizes = explode(",",$sizes);
+                          @endphp
+                          @foreach($sizes as $size)
+                          <div data-value="{{$size}}" class="swatch-element {{$size}} available">
+                            <input class="swatchInput" id="swatch-1-{{$size}}" type="radio" name="option-1" value="{{$size}}">
+                            <label class="swatchLbl medium" for="swatch-1-{{$size}}" title="XS">{{$size}}</label>
                           </div>
-                          <div data-value="S" class="swatch-element s available">
+                          @endforeach
+                          <!-- <div data-value="S" class="swatch-element s available">
                             <input class="swatchInput" id="swatch-1-s" type="radio" name="option-1" value="S">
                             <label class="swatchLbl medium" for="swatch-1-s" title="S">S</label>
                           </div>
@@ -111,7 +137,7 @@
                           <div data-value="XL" class="swatch-element xl available">
                             <input class="swatchInput" id="swatch-1-xl" type="radio" name="option-1" value="XL">
                             <label class="swatchLbl medium" for="swatch-1-xl" title="XL">XL</label>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
                       <p class="infolinks"><a href="#sizechart" class="sizelink btn"> Size Guide</a>

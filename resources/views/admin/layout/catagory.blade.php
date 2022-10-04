@@ -16,6 +16,7 @@
       <th scope="col">#</th>
       <th scope="col">Catagory Name</th>
       <th scope="col">Branch Name</th>
+      <th scope="col">Status</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -25,6 +26,7 @@
       <th scope="row">{{$key + 1}}</th>
       <td>{{$cat->catagory_name}}</td>
       <td>{{$cat->branch_name}}</td>
+      <td>{{$cat->catstatus}}</td>
       <td>
         <button class="btn update_cat" value="{{$cat->id}}">Update</button>
         <button class="btn delete_cat" value="{{$cat->id}}">delete</button>

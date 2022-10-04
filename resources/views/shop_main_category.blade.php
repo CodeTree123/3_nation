@@ -197,7 +197,7 @@
                     <!--End Toolbar-->
                     <div class="grid-products grid--view-items">
                         <div class="row">
-                            @foreach($products as $product)
+                            @forelse($products as $product)
                             <div class="col-6 col-sm-6 col-md-4 col-lg-3 item">
                                 <!-- start product image -->
                                 <div class="product-image">
@@ -215,7 +215,7 @@
                                         <!-- End hover image -->
 
                                         <!-- Hover image -->
-{{--                                        <img class="hover blur-up lazyload" data-src="{{asset('assets/images/product-images/product-image1-1.jpg')}}" src="{{asset('assets/images/product-images/product-image1-1.jpg')}}" alt="image" title="product">--}}
+                                    {{--<img class="hover blur-up lazyload" data-src="{{asset('assets/images/product-images/product-image1-1.jpg')}}" src="{{asset('assets/images/product-images/product-image1-1.jpg')}}" alt="image" title="product">--}}
                                         <!-- End hover image -->
 
                                     </a>
@@ -234,7 +234,7 @@
                                 <!-- end product image -->
 
                                 <!--start product details -->
-                                <a href="/single_product">
+                                <a href="{{route('single_product',[$product->id])}}">
                                     <div class="product-details text-center">
                                         <!-- product name -->
                                         <div class="product-name">
@@ -262,7 +262,11 @@
 
                                 <!-- countdown end -->
                             </div>
-                            @endforeach
+                            @empty
+                            <div class="col-12 text-center">
+                                <h2>Product Will Be Released Very Soon!</h2>
+                            </div>
+                            @endforelse
 
                         </div>
                     </div>

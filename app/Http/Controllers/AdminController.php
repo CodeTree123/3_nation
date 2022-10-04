@@ -120,9 +120,10 @@ class AdminController extends Controller
     }
 
     public function product_add(Request $request){
-//         dd($request->product_image,$request->product_image1);
+        dd($request->all());
         $filename='';
         $filename1='';
+        $filename_others[]='';
         if($request->hasFile('product_image'))
         {
             $file= $request->file('product_image');
@@ -143,14 +144,36 @@ class AdminController extends Controller
             }
         }
 
-        // dd($filename);
+        if($request->hasFile('images'))
+        {
+            $file_others= $request->file('images');
+            // dd("hello",$file_others);
+            foreach($file_others as $file_other){
+                if ($file_other->isValid()) {
+                    $filename_other="other_pro".date('Ymdhms').rand(1,100).'.'.$file_other->getClientOriginalExtension();
+                    Image::make($file_other->getRealPath())->resize(1075, 1500)->save(base_path("public/uploads/product/" . $filename_other), 100);
+                    $filename_others[] = $filename_other;
+    //                $file->storeAs('product',$filename);
+                }
+            }
+        }
+        if($filename_others[0] == null){
+            $test = array_shift($filename_others);
+        }
+        $filename_others = implode(',',$filename_others);
+        
         product::create([
             'subcat_id' => $request->subcat_id,
+            'product_code' => $request->product_code,
             'product_name' => $request->product_name,
             'description' => $request->description,
             'price' => $request->price,
+            'quantity' => $request->quantity,
+            'color' => $request->color,
+            'size' => $request->size,
             'm_image' => $filename,
             'h_image' => $filename1,
+            'other_images' => $filename_others,
             'prostatus' => $request->p_status,
         ]);
 
@@ -168,9 +191,11 @@ class AdminController extends Controller
 
     public function product_update(Request $request){
 //         dd($request->all());
+        // dd($request->images);
         $pro_id = product::find($request->product_id);
         $filename=$pro_id->m_image;
         $filename1=$pro_id->h_image;
+        $filename_others[]=$pro_id->other_images;
         if($request->hasFile('product_image'))
         {
             $destination = 'uploads/product/'.$pro_id->m_image;
@@ -181,8 +206,6 @@ class AdminController extends Controller
             if ($file->isValid()) {
                 $filename="product".date('Ymdhms').'.'.$file->getClientOriginalExtension();
                 Image::make($file->getRealPath())->resize(1075, 1500)->save(base_path("public/uploads/product/" . $filename), 100);
-
-//                $file->storeAs('product',$filename);
             }
         }
 
@@ -200,13 +223,45 @@ class AdminController extends Controller
             }
         }
 
+        if($request->hasFile('images'))
+        {
+            $others = $pro_id->other_images;
+            $others = explode(',',$others);
+            // dd($others);
+            foreach($others as $other){
+                $destination = 'uploads/product/'.$other;
+                if(File::exists($destination)){
+                    File::delete($destination);
+                }
+            }
+            $file_others= $request->file('images');
+            // dd("hello",$file_others);
+            foreach($file_others as $file_other){
+                if ($file_other->isValid()) {
+                    $filename_other="other_pro".date('Ymdhms').rand(1,100).'.'.$file_other->getClientOriginalExtension();
+                    Image::make($file_other->getRealPath())->resize(1075, 1500)->save(base_path("public/uploads/product/" . $filename_other), 100);
+                    $filename_others[] = $filename_other;
+    //                $file->storeAs('product',$filename);
+                }
+            }
+        }
+        if($filename_others[0] == null){
+        $test = array_shift($filename_others);
+        }
+        $filename_others = implode(',',$filename_others);
+
         product::find($request->product_id)->update([
             'subcat_id' => $request->u_sub_cat_id,
+            'product_code' => $request->u_product_code,
             'product_name' => $request->u_product_name,
             'description' => $request->u_description,
             'price' => $request->u_price,
+            'quantity' => $request->u_quantity,
+            'color' => $request->u_color,
+            'size' => $request->u_size,
             'm_image' => $filename,
             'h_image' => $filename1,
+            'other_images' => $filename_others,
         ]);
 
         return back()->with('success','Product information have been successfully Updated.');
@@ -216,12 +271,22 @@ class AdminController extends Controller
 
         $pro_id = product::find($request->deletingId);
         $destination = 'uploads/product/'.$pro_id->m_image;
-        $destination1 = 'uploads/product/'.$pro_id->h_image;
         if(File::exists($destination)){
             File::delete($destination);
         }
+        
+        $destination1 = 'uploads/product/'.$pro_id->h_image;
         if(File::exists($destination1)){
             File::delete($destination1);
+        }
+        $others = $pro_id->other_images;
+        $others = explode(',',$others);
+        // dd($others);
+        foreach($others as $other){
+            $destination = 'uploads/product/'.$other;
+            if(File::exists($destination)){
+                File::delete($destination);
+            }
         }
 
         $del_product_info = product::find($request->deletingId);

@@ -16,6 +16,7 @@
       <th scope="col">Sub Catagory Name</th>
       <th scope="col">Catagory Name</th>
       <th scope="col">Branch Name</th>
+      <th scope="col">Status</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -26,6 +27,7 @@
       <td>{{$subcat->subcatagory_name}}</td>
       <td>{{$subcat->catagory_name}}</td>
       <td>{{$subcat->branch_name}}</td>
+      <td>{{$subcat->subcatstatus}}</td>
       <td>
         <button class="btn update_subcat" value="{{$subcat->id}}">Update</button>
         <button class="btn delete_subcat" value="{{$subcat->id}}">delete</button>

@@ -25,7 +25,7 @@ Route::get('/header',[FrontendController::class, 'header'])->name('header');
 Route::get('/footer',[FrontendController::class, 'footer'])->name('footer');
 // Route::get('/shop_main_category/{id}',[FrontendController::class, 'shop_main_category'])->name('shop_main_category');
 Route::get('/shop_main_category/{id}',[FrontendController::class, 'shop_main_category'])->name('shop_main_category');
-Route::get('/single_product',[FrontendController::class, 'single_product'])->name('single_product');
+Route::get('/single_product/{id}',[FrontendController::class, 'single_product'])->name('single_product');
 Route::get('/cart',[FrontendController::class, 'cart'])->name('cart');
 Route::get('/checkout',[FrontendController::class, 'checkout'])->name('checkout');
 Route::get('/about_us',[FrontendController::class, 'about_us'])->name('about_us');

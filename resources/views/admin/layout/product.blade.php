@@ -21,6 +21,8 @@
                 <th scope="col">Image</th>
                 <th scope="col">Description</th>
                 <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Status</th>
                 <th scope="col">Action</th>
             </tr>
             </thead>
@@ -34,13 +36,15 @@
                     <td>{{$product->branch_name}}</td>
                     <td>
                         @if($product->m_image == null)
-                            <img src="{{ asset('img/service.jpg')}}" class="shop_image_view" >
+                        <img src="{{ asset('img/service.jpg')}}" class="shop_image_view" >
                         @else
-                            <img src="{{asset('/uploads/product/'.$product->m_image)}}" class="shop_image_view" >
+                        <img src="{{asset('/uploads/product/'.$product->m_image)}}" class="shop_image_view" >
                         @endif
                     </td>
                     <td>{{$product->description}}</td>
                     <td>{{$product->price}}</td>
+                    <td>{{$product->quantity}}</td>
+                    <td>{{$product->prostatus}}</td>
                     <td>
                         <button class="btn update_product" value="{{$product->id}}">Update</button>
                         <button class="btn delete_product" value="{{$product->id}}">delete</button>
@@ -54,7 +58,7 @@
 
 <!-- Modal for add service -->
 <div class="modal fade" id="AddProduct" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-dialog modal-lg modal-dialog-centered ">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Add Product</h5>
@@ -76,6 +80,12 @@
                         <label for="product" class="form-label">Product Name</label>
                         <input type="text" class="form-control" id="product" name="product_name" aria-describedby="emailHelp">
                     </div>
+                    
+                    <div class="mb-3">
+                        <label for="product_code" class="form-label">Product Code</label>
+                        <input type="text" class="form-control" id="product_code" name="product_code" aria-describedby="emailHelp">
+                    </div>
+                    
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
                         <input type="text" class="form-control" id="description" name="description">
@@ -85,12 +95,28 @@
                         <input type="text" class="form-control" id="price" name="price">
                     </div>
                     <div class="mb-3">
-                        <label for="formFile" class="form-label">Product Image</label>
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <input type="text" class="form-control" id="quantity" name="quantity">
+                    </div>
+                    <div class="mb-3">
+                        <label for="color" class="form-label">Color</label>
+                        <input type="text" class="form-control" id="color" name="color">
+                    </div>
+                    <div class="mb-3">
+                        <label for="size" class="form-label">Size</label>
+                        <input type="text" class="form-control" id="size" name="size">
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Product Main Image</label>
                         <input class="form-control" type="file" id="formFile" name="product_image">
                     </div>
                     <div class="mb-3">
-                        <label for="formFile" class="form-label">Product Image</label>
+                        <label for="formFile" class="form-label">Product Hover Image</label>
                         <input class="form-control" type="file" id="formFile" name="product_image1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Product Other Images</label>
+                        <input class="form-control" type="file" id="formFile" name="images[]" multiple>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -128,6 +154,10 @@
                         <input type="text" class="form-control" id="u_product_name" name="u_product_name" aria-describedby="emailHelp">
                     </div>
                     <div class="mb-3">
+                        <label for="u_product_code" class="form-label">Product Code</label>
+                        <input type="text" class="form-control" id="u_product_code" name="u_product_code" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
                         <label for="u_description" class="form-label">Description</label>
                         <input type="text" class="form-control" id="u_description" name="u_description">
                     </div>
@@ -136,12 +166,28 @@
                         <input type="text" class="form-control" id="u_price" name="u_price">
                     </div>
                     <div class="mb-3">
-                        <label for="formFile" class="form-label">Product Image</label>
+                        <label for="u_quantity" class="form-label">Quantity</label>
+                        <input type="text" class="form-control" id="u_quantity" name="u_quantity">
+                    </div>
+                    <div class="mb-3">
+                        <label for="u_color" class="form-label">Color</label>
+                        <input type="text" class="form-control" id="u_color" name="u_color">
+                    </div>
+                    <div class="mb-3">
+                        <label for="u_size" class="form-label">Size</label>
+                        <input type="text" class="form-control" id="u_size" name="u_size">
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Product Main Image</label>
                         <input class="form-control" type="file" id="formFile" name="product_image">
                     </div>
                     <div class="mb-3">
-                        <label for="formFile" class="form-label">Product Image</label>
+                        <label for="formFile" class="form-label">Product Hover Image</label>
                         <input class="form-control" type="file" id="formFile" name="product_image1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Product Other Images</label>
+                        <input class="form-control" type="file" id="formFile" name="images[]" multiple>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -198,9 +244,12 @@
                         // console.log(response.serv);
                         $('#product_id').val(update_id);
                         $('#u_sub_cat_id').val(response.pro.subcat_id);
+                        $('#u_product_code').val(response.pro.product_code);
                         $('#u_product_name').val(response.pro.product_name);
                         $('#u_description').val(response.pro.description);
                         $('#u_price').val(response.pro.price);
+                        $('#u_color').val(response.pro.color);
+                        $('#u_size').val(response.pro.size);
                     }
                 });
         });

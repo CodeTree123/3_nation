@@ -3478,7 +3478,7 @@ h1.product-single__title,
     box-shadow: none;
 }
 .product-form .swatch .swatchInput + .swatchLbl.color {
-    width: 30px;
+    /* width: 30px; */
     padding: 0;
     height: 30px;
     background-repeat: no-repeat;

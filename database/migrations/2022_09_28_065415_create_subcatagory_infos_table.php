@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('subcatagory_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('branch_id')->nullable();
+            // $table->string('branch_id')->nullable();
             $table->string('cat_id')->nullable();
             $table->string('subcatagory_name')->nullable();
             $table->string('subcatstatus')->nullable();
