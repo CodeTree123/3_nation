@@ -169,7 +169,7 @@ class AdminController extends Controller
     }
 
     public function product_add(Request $request){
-        dd($request->all());
+//        dd($request->all());
         $filename='';
         $filename1='';
         $filename_others[]='';
@@ -210,7 +210,7 @@ class AdminController extends Controller
             $test = array_shift($filename_others);
         }
         $filename_others = implode(',',$filename_others);
-        
+
         product::create([
             'subcat_id' => $request->subcat_id,
             'product_code' => $request->product_code,
@@ -242,10 +242,17 @@ class AdminController extends Controller
     public function product_update(Request $request){
 //         dd($request->all());
         // dd($request->images);
+//        $validator = $request->validate([
+//            'images'=> 'array|max:5',
+//        ]);
+//        if($validator->fails()){
+//            return back()->with('fail','Maximum 4 Images Are Allowed.');
+//        }
+
         $pro_id = product::find($request->product_id);
         $filename=$pro_id->m_image;
         $filename1=$pro_id->h_image;
-        $filename_others[]=$pro_id->other_images;
+        $filename_others[]='';
         if($request->hasFile('product_image'))
         {
             $destination = 'uploads/product/'.$pro_id->m_image;
@@ -284,6 +291,7 @@ class AdminController extends Controller
                     File::delete($destination);
                 }
             }
+
             $file_others= $request->file('images');
             // dd("hello",$file_others);
             foreach($file_others as $file_other){
@@ -295,8 +303,9 @@ class AdminController extends Controller
                 }
             }
         }
+
         if($filename_others[0] == null){
-        $test = array_shift($filename_others);
+            $test = array_shift($filename_others);
         }
         $filename_others = implode(',',$filename_others);
 
@@ -325,7 +334,7 @@ class AdminController extends Controller
         if(File::exists($destination)){
             File::delete($destination);
         }
-        
+
         $destination1 = 'uploads/product/'.$pro_id->h_image;
         if(File::exists($destination1)){
             File::delete($destination1);
@@ -375,15 +384,17 @@ class AdminController extends Controller
 
     public function product_img($id){
         $pro = product::where('id','=',$id)->first();
-        $m_image = $pro->m_image;
-        $h_image = $pro->h_image;
-        $other_images = $pro->other_images;
-        $other_images = explode(',',$other_images);
+        $images = $pro->m_image.','.$pro->h_image.','.$pro->other_images;
+        $images = explode(',',$images);
         return response()->json([
             'status'=>200,
-            'image' => $m_image,
-            'image1' => $h_image,
-            'image2' => $other_images,
+            'all_image' => $images,
+        ]);
+    }public function product_description($id){
+        $des = product::where('id','=',$id)->first()->description;
+        return response()->json([
+            'status'=>200,
+            'des' => $des,
         ]);
     }
 

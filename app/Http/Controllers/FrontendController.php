@@ -67,4 +67,7 @@ class FrontendController extends Controller
     public function terms_and_conditions(){
         return view('terms_and_conditions');
     }
+    public function cart(){
+        return view('cart_list');
+    }
 }

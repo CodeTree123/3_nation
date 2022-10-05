@@ -78,6 +78,7 @@ Route::get('admin/product/status/{id}', [AdminController::class, 'product_status
 Route::put('/admin/product/add_stock', [AdminController::class, 'add_product_stock'])->name('add_product_stock');
 
 Route::get('/admin/product/image/{id}', [AdminController::class, 'product_img'])->name('product_img');
+Route::get('/admin/product/description/{id}', [AdminController::class, 'product_description'])->name('product_description');
 
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

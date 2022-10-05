@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('size')->nullable();
             $table->string('m_image')->nullable();
             $table->string('h_image')->nullable();
+            $table->string('other_images')->nullable();
             $table->string('prostatus')->nullable();
             $table->timestamps();
         });

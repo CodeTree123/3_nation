@@ -19,6 +19,9 @@
         <li class="nav-item w-100">
             <a href="{{route('product')}}" class="nav-link text-dark pl-4">Product</a>
         </li>
+        <li class="nav-item w-100">
+            <a href="{{route('product')}}" class="nav-link text-dark pl-4">Orders</a>
+        </li>
         <li class="nav-item w-100" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
             <a href="#" class="nav-link text-dark pl-4">Website</a>
 

@@ -14,6 +14,7 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">Product Code</th>
                 <th scope="col">Product Name</th>
                 <th scope="col">Sub Catagory Name</th>
                 <th scope="col">Catagory Name</th>
@@ -32,6 +33,7 @@
             @foreach($products as $key=>$product)
                 <tr>
                     <th scope="row">{{$key + 1}}</th>
+                    <td>{{$product->product_code}}</td>
                     <td>{{$product->product_name}}</td>
                     <td>{{$product->subcatagory_name}}</td>
                     <td>{{$product->catagory_name}}</td>
@@ -39,22 +41,28 @@
                     <td>{{$product->price}}</td>
                     <td>{{$product->quantity}}</td>
                     <td>{{$product->stock_limit}}</td>
-                    <td>{{$product->new_stock}}</td>
-                    <td> 
+                    <td>
+                        @if($product->new_stock != null)
+                        {{$product->new_stock}}
+                        @else
+                        0
+                        @endif
+                    </td>
+                    <td>
                         <button type="button" class="btn btn-sm btn-primary v_image" value="{{$product->id}}">
-                        View 
-                        </button>   
+                        View
+                        </button>
                         {{-- @if($product->m_image == null)
                         <img src="{{ asset('img/service.jpg')}}" class="shop_image_view" >
                         @else
                         <img src="{{asset('/uploads/product/'.$product->m_image)}}" class="shop_image_view" >
                         @endif --}}
                     </td>
-                    <td> 
-                        <button type="button" class="btn btn-sm btn-info " data-toggle="modal" data-target="#view_product_description" value="{{$product->id}}">
-                        View 
-                        </button>   
-                       {{-- {{$product->description}} --}} 
+                    <td>
+                        <button type="button" class="btn btn-sm btn-info v_description" value="{{$product->id}}">
+                        View
+                        </button>
+                       {{-- {{$product->description}} --}}
                     </td>
                     <td>
                         @if($product->prostatus == "1")
@@ -99,12 +107,12 @@
                         <label for="product" class="form-label">Product Name</label>
                         <input type="text" class="form-control" id="product" name="product_name" aria-describedby="emailHelp">
                     </div>
-                    
+
                     <div class="mb-3">
                         <label for="product_code" class="form-label">Product Code</label>
                         <input type="text" class="form-control" id="product_code" name="product_code" aria-describedby="emailHelp">
                     </div>
-                    
+
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
                         <input type="text" class="form-control" id="description" name="description">
@@ -263,12 +271,12 @@
              @method('PUT')
                 <div class="modal-body">
                     <input type="hidden" class="form-control" name="pro_id" value="" id="stock_product_id">
-                    
+
                     <div class="mb-3">
                         <label for="stock" class="form-label">Quantity</label>
                         <input type="text" class="form-control" id="stock" name="stock">
                     </div>
-                    
+
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Add Stock</button>
@@ -279,7 +287,7 @@
     </div>
 </div>
 
-<!-- Modal to View Images of Product --> 
+<!-- Modal to View Images of Product -->
 <div class="modal fade" id="view_image_modal" tabindex="-1" aria-labelledby="view_image_modal" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -287,18 +295,16 @@
                 <h1 class="modal-title fs-5" id="view_image_modal">Product Images</h1>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" id="test">
-                <div class="row">
-                    <div class="col-4"> 
-                        <img class="logo mx-auto " src="{{ asset('assets/images/logo_final.png') }}" alt="" width="150"> 
-                    </div> 
-                </div>   
-            </div> 
+            <div class="modal-body" >
+                <div class="row" id="test">
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Modal to View Description of Product --> 
+<!-- Modal to View Description of Product -->
 <div class="modal fade" id="view_product_description" tabindex="-1" aria-labelledby="view_product_description" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -307,11 +313,11 @@
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body" id="test2">
 
                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, fuga. Dolor pariatur fuga perferendis dolorem tenetur nisi, optio eveniet vero obcaecati. Sint debitis totam sequi sunt provident saepe minima deleniti doloribus ipsam soluta pariatur quas nisi, aliquid hic error, autem quam molestias sapiente quod impedit maxime repudiandae quae tenetur quisquam. Libero quam doloremque expedita ex aspernatur voluptas. Ea quibusdam rem nostrum excepturi facilis consequatur ullam dignissimos ipsa eum, saepe ipsum accusantium possimus velit quod quas mollitia nobis nihil dolorem veniam aliquam. Illo quia repellendus dignissimos tempora eligendi, libero dolore amet cum fugit odit impedit? Vero sed veritatis dolore fuga similique?
-                    
-            </div> 
+
+            </div>
         </div>
     </div>
 </div>
@@ -370,20 +376,34 @@
                     type:"GET",
                     url: "/admin/product/image/"+proId,
                     success: function(response){
-                        console.log(response.image,response.image1,response.image2);
+                        // console.log(response.all_image);
+
                         $("#test").html("");
-                        $("#test").append('\
-                            <div class="row">\
-                                <div class="col-4">\
-                                    <img class="logo mx-auto" src="/uploads/product/'+response.image+'" alt="" width="100%">\
-                                </div>\
-                                <div class="col-4">\
-                                    <img class="logo mx-auto" src="/uploads/product/'+response.image1+'" alt="" width="100%">\
-                                </div>\
-                                <div class="col-4">\
-                                    <img class="logo mx-auto" src="/uploads/product/'+response.image2[7]+'" alt="" width="100%">\
-                                </div>\
-                            </div>\
+                        $.each(response.all_image, function (i,item){
+
+                            $("#test").append('\
+                                    <div class="col-3">\
+                                        <img class="logo mx-auto" src="/uploads/product/'+item+'" alt="" width="100%">\
+                                    </div>\
+                            ');
+                        });
+                    }
+                });
+        });
+
+        $(document).on('click', '.v_description',function(){
+            var proId = $(this).val();
+            $("#view_product_description").modal('show');
+            $.ajax({
+                    type:"GET",
+                    url: "/admin/product/description/"+proId,
+                    success: function(response){
+                        // console.log(response.des);
+
+                        $("#test2").html("");
+
+                        $("#test2").append('\
+                                <p>'+response.des+'</p>\
                         ');
                     }
                 });

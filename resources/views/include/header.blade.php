@@ -217,7 +217,7 @@
                     <span class="label">Cart Subtotal:</span><span class="product-price"><span class="money">৳1300.00</span></span>
                   </div>
                   <div class="buttonSet text-center">
-                    <a href="/cart_list" class="btn btn-secondary btn--small">View Cart</a>
+                    <a href="/cart" class="btn btn-secondary btn--small">View Cart</a>
                     <a href="/checkout" class="btn btn-secondary btn--small">Checkout</a>
                   </div>
                 </div>
