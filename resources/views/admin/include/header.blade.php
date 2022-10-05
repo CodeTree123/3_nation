@@ -15,12 +15,16 @@
                  <div class=" col-lg-3 col-md-3 col-sm-6 col-6  d-flex justify-content-center align-items-center">
                    @if(Auth::user())
                                     <span id="logged-in-state" class="me-5">
-
+ 
              
 
                                         <div class="dropdown  ">
                                             @if(Auth::user()->image == null)
-                                            <img src="{{ asset('img/profile-image.jpg') }}" class="rounded-circle header-profile-img" alt="..." id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
+                                          
+
+                                            <div class="border border-dark rounded-circle p-2"id="dropdownMenuButton1" data-toggle="dropdown"  >
+                                                <i class="fa-solid fa-user-tie fa-2xl"></i>
+                                            </div>
                                             @else
                                             <img src="{{ asset('uploads/customer/'.Auth::user()->image) }}" class="rounded-circle header-profile-img" alt="..." id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
                                             @endif
@@ -54,15 +58,7 @@
                                     </button>
                                     @endif
 
-
-
-                     <span class=" position-relative">
-                             <i class="fa-solid fa-cart-shopping fa-2xl"></i>
-                             <span  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-counter-badge">
-
-                             </span>
-                    </span>
-
+ 
                      <!-- removable script -->
                      <!-- <script>
                      const loginSignUpBtn = document.getElementById('login-signup-btn');

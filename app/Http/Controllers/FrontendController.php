@@ -27,7 +27,7 @@ class FrontendController extends Controller
     }
     public function shop_main_category($id){
         $subcat = subcatagory_info::Join('catagory_infos','subcatagory_infos.cat_id','=','catagory_infos.id')->Join('branches','catagory_infos.branch_id','=','branches.id')->where('subcatagory_infos.id','=',$id)->first(['subcatagory_infos.subcatagory_name','catagory_infos.catagory_name','branches.branch_name']);
-        $products = product::where('subcat_id','=',$id)->get();
+        $products = product::where('subcat_id','=',$id)->where('prostatus','1')->get();
         return view('shop_main_category',compact('subcat','products'));
     }
     public function cart_list(){

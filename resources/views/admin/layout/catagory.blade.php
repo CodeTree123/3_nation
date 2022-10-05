@@ -10,7 +10,7 @@
 
     @include('admin.include.errors')
 
-    <table class="table">
+    <table class="table text-center align-middle">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -26,7 +26,13 @@
       <th scope="row">{{$key + 1}}</th>
       <td>{{$cat->catagory_name}}</td>
       <td>{{$cat->branch_name}}</td>
-      <td>{{$cat->catstatus}}</td>
+      <td>
+        @if($cat->catstatus == "1")
+        <a class="btn btn-sm btn-success" href="{{route('catagory_status',[$cat->id])}}" role="button">Active</a>
+        @else
+        <a class="btn btn-sm btn-danger" href="{{route('catagory_status',[$cat->id])}}" role="button">Inactive</a>
+        @endif
+      </td>
       <td>
         <button class="btn update_cat" value="{{$cat->id}}">Update</button>
         <button class="btn delete_cat" value="{{$cat->id}}">delete</button>

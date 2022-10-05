@@ -10,7 +10,7 @@
    @include('admin.include.errors')
 
     <div class="table-responsive table-responsive-xl table-responsive-lg table-responsive-md table-responsive-sm">
-        <table class="table">
+        <table class="table text-center align-middle">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -18,10 +18,12 @@
                 <th scope="col">Sub Catagory Name</th>
                 <th scope="col">Catagory Name</th>
                 <th scope="col">Branch Name</th>
-                <th scope="col">Image</th>
-                <th scope="col">Description</th>
                 <th scope="col">Price</th>
                 <th scope="col">Quantity</th>
+                <th scope="col">Stock Limit</th>
+                <th scope="col">New Stock</th>
+                <th scope="col">Image</th>
+                <th scope="col">Description</th>
                 <th scope="col">Status</th>
                 <th scope="col">Action</th>
             </tr>
@@ -34,20 +36,37 @@
                     <td>{{$product->subcatagory_name}}</td>
                     <td>{{$product->catagory_name}}</td>
                     <td>{{$product->branch_name}}</td>
-                    <td>
-                        @if($product->m_image == null)
+                    <td>{{$product->price}}</td>
+                    <td>{{$product->quantity}}</td>
+                    <td>{{$product->stock_limit}}</td>
+                    <td>{{$product->new_stock}}</td>
+                    <td> 
+                        <button type="button" class="btn btn-sm btn-primary v_image" value="{{$product->id}}">
+                        View 
+                        </button>   
+                        {{-- @if($product->m_image == null)
                         <img src="{{ asset('img/service.jpg')}}" class="shop_image_view" >
                         @else
                         <img src="{{asset('/uploads/product/'.$product->m_image)}}" class="shop_image_view" >
+                        @endif --}}
+                    </td>
+                    <td> 
+                        <button type="button" class="btn btn-sm btn-info " data-toggle="modal" data-target="#view_product_description" value="{{$product->id}}">
+                        View 
+                        </button>   
+                       {{-- {{$product->description}} --}} 
+                    </td>
+                    <td>
+                        @if($product->prostatus == "1")
+                        <a class="btn btn-sm btn-success" href="{{route('product_status',[$product->id])}}" role="button">Active</a>
+                        @else
+                        <a class="btn btn-sm btn-danger" href="{{route('product_status',[$product->id])}}" role="button">Inactive</a>
                         @endif
                     </td>
-                    <td>{{$product->description}}</td>
-                    <td>{{$product->price}}</td>
-                    <td>{{$product->quantity}}</td>
-                    <td>{{$product->prostatus}}</td>
-                    <td>
+                    <td style="min-width:270px">
                         <button class="btn update_product" value="{{$product->id}}">Update</button>
                         <button class="btn delete_product" value="{{$product->id}}">delete</button>
+                        <button class="btn stock_product" value="{{$product->id}}">Add Stock</button>
                     </td>
                 </tr>
             @endforeach
@@ -56,7 +75,7 @@
         </table>
     </div>
 
-<!-- Modal for add service -->
+<!-- Modal for add Product -->
 <div class="modal fade" id="AddProduct" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered ">
         <div class="modal-content">
@@ -97,6 +116,10 @@
                     <div class="mb-3">
                         <label for="quantity" class="form-label">Quantity</label>
                         <input type="text" class="form-control" id="quantity" name="quantity">
+                    </div>
+                    <div class="mb-3">
+                        <label for="alert_quantity" class="form-label">Alert Quantity</label>
+                        <input type="text" class="form-control" id="alert_quantity" name="alert_quantity">
                     </div>
                     <div class="mb-3">
                         <label for="color" class="form-label">Color</label>
@@ -170,6 +193,10 @@
                         <input type="text" class="form-control" id="u_quantity" name="u_quantity">
                     </div>
                     <div class="mb-3">
+                        <label for="u_alert_quantity" class="form-label">Alert Quantity</label>
+                        <input type="text" class="form-control" id="u_alert_quantity" name="u_alert_quantity">
+                    </div>
+                    <div class="mb-3">
                         <label for="u_color" class="form-label">Color</label>
                         <input type="text" class="form-control" id="u_color" name="u_color">
                     </div>
@@ -223,6 +250,74 @@
     </div>
 </div>
 
+<!-- Modal for Add Stock service -->
+<div class="modal fade" id="AddStock" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add New Stock</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{route('add_product_stock')}}" method="post" enctype="multipart/form-data">
+             @csrf
+             @method('PUT')
+                <div class="modal-body">
+                    <input type="hidden" class="form-control" name="pro_id" value="" id="stock_product_id">
+                    
+                    <div class="mb-3">
+                        <label for="stock" class="form-label">Quantity</label>
+                        <input type="text" class="form-control" id="stock" name="stock">
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Add Stock</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal to View Images of Product --> 
+<div class="modal fade" id="view_image_modal" tabindex="-1" aria-labelledby="view_image_modal" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="view_image_modal">Product Images</h1>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="test">
+                <div class="row">
+                    <div class="col-4"> 
+                        <img class="logo mx-auto " src="{{ asset('assets/images/logo_final.png') }}" alt="" width="150"> 
+                    </div> 
+                </div>   
+            </div> 
+        </div>
+    </div>
+</div>
+
+<!-- Modal to View Description of Product --> 
+<div class="modal fade" id="view_product_description" tabindex="-1" aria-labelledby="view_product_description" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="view_product_description">Product Description</h1>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, fuga. Dolor pariatur fuga perferendis dolorem tenetur nisi, optio eveniet vero obcaecati. Sint debitis totam sequi sunt provident saepe minima deleniti doloribus ipsam soluta pariatur quas nisi, aliquid hic error, autem quam molestias sapiente quod impedit maxime repudiandae quae tenetur quisquam. Libero quam doloremque expedita ex aspernatur voluptas. Ea quibusdam rem nostrum excepturi facilis consequatur ullam dignissimos ipsa eum, saepe ipsum accusantium possimus velit quod quas mollitia nobis nihil dolorem veniam aliquam. Illo quia repellendus dignissimos tempora eligendi, libero dolore amet cum fugit odit impedit? Vero sed veritatis dolore fuga similique?
+                    
+            </div> 
+        </div>
+    </div>
+</div>
+
+
+
 @endsection
 
 
@@ -248,6 +343,8 @@
                         $('#u_product_name').val(response.pro.product_name);
                         $('#u_description').val(response.pro.description);
                         $('#u_price').val(response.pro.price);
+                        $('#u_quantity').val(response.pro.quantity);
+                        $('#u_alert_quantity').val(response.pro.stock_limit);
                         $('#u_color').val(response.pro.color);
                         $('#u_size').val(response.pro.size);
                     }
@@ -258,6 +355,38 @@
             var deleteId = $(this).val();
             $("#DeleteProduct").modal('show');
             $('#del_pro_id').val(deleteId);
+        });
+
+        $(document).on('click', '.stock_product',function(){
+            var proId = $(this).val();
+            $("#AddStock").modal('show');
+            $('#stock_product_id').val(proId);
+        });
+
+        $(document).on('click', '.v_image',function(){
+            var proId = $(this).val();
+            $("#view_image_modal").modal('show');
+            $.ajax({
+                    type:"GET",
+                    url: "/admin/product/image/"+proId,
+                    success: function(response){
+                        console.log(response.image,response.image1,response.image2);
+                        $("#test").html("");
+                        $("#test").append('\
+                            <div class="row">\
+                                <div class="col-4">\
+                                    <img class="logo mx-auto" src="/uploads/product/'+response.image+'" alt="" width="100%">\
+                                </div>\
+                                <div class="col-4">\
+                                    <img class="logo mx-auto" src="/uploads/product/'+response.image1+'" alt="" width="100%">\
+                                </div>\
+                                <div class="col-4">\
+                                    <img class="logo mx-auto" src="/uploads/product/'+response.image2[7]+'" alt="" width="100%">\
+                                </div>\
+                            </div>\
+                        ');
+                    }
+                });
         });
 
     });

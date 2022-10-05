@@ -13,9 +13,26 @@ use Image;
 
 class AdminController extends Controller
 {
+// Branch
     public function branch(){
         $branchs = branch::all();
         return view('admin.layout.branch',compact('branchs'));
+    }
+
+    public function branch_status($id){
+        $getStatus = branch::find($id);
+        // dd($getStatus);
+        if($getStatus->branch_status == 1){
+            $status = 0;
+        }else{
+            $status = 1;
+        }
+        if($status == 1){
+            branch::where('id','=',$id)->update(['branch_status'=>$status]);
+        }else{
+            branch::where('id','=',$id)->update(['branch_status'=>$status]);
+        }
+        return back();
     }
 // Catagory
     public function catagory(){
@@ -63,6 +80,22 @@ class AdminController extends Controller
         return back()->with('success','Catagory information have been successfully Deleted.');
     }
 
+    public function catagory_status($id){
+        $getStatus = catagory_info::find($id);
+        // dd($getStatus);
+        if($getStatus->catstatus == 1){
+            $status = 0;
+        }else{
+            $status = 1;
+        }
+        if($status == 1){
+            catagory_info::where('id','=',$id)->update(['catstatus'=>$status]);
+        }else{
+            catagory_info::where('id','=',$id)->update(['catstatus'=>$status]);
+        }
+        return back();
+    }
+
 //Sub Catagory
     public function sub_catagory(){
         $catagories = catagory_info::Join('branches','catagory_infos.branch_id','=','branches.id')->get(['catagory_infos.*','branches.branch_name']);
@@ -107,6 +140,22 @@ class AdminController extends Controller
         $del_subcatagory_info->delete();
 
         return back()->with('success','Sub Catagory information have been successfully Deleted.');
+    }
+
+    public function sub_catagory_status($id){
+        $getStatus = subcatagory_info::find($id);
+        // dd($getStatus);
+        if($getStatus->subcatstatus == 1){
+            $status = 0;
+        }else{
+            $status = 1;
+        }
+        if($status == 1){
+            subcatagory_info::where('id','=',$id)->update(['subcatstatus'=>$status]);
+        }else{
+            subcatagory_info::where('id','=',$id)->update(['subcatstatus'=>$status]);
+        }
+        return back();
     }
 
 //Product
@@ -169,6 +218,7 @@ class AdminController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'quantity' => $request->quantity,
+            'stock_limit' => $request->alert_quantity,
             'color' => $request->color,
             'size' => $request->size,
             'm_image' => $filename,
@@ -257,6 +307,7 @@ class AdminController extends Controller
             'description' => $request->u_description,
             'price' => $request->u_price,
             'quantity' => $request->u_quantity,
+            'stock_limit' => $request->u_alert_quantity,
             'color' => $request->u_color,
             'size' => $request->u_size,
             'm_image' => $filename,
@@ -293,6 +344,47 @@ class AdminController extends Controller
         $del_product_info->delete();
 
         return back()->with('success','Product information have been successfully Deleted.');
+    }
+
+    public function product_status($id){
+        $getStatus = product::find($id);
+        // dd($getStatus);
+        if($getStatus->prostatus == 1){
+            $status = 0;
+        }else{
+            $status = 1;
+        }
+        if($status == 1){
+            product::where('id','=',$id)->update(['prostatus'=>$status]);
+        }else{
+            product::where('id','=',$id)->update(['prostatus'=>$status]);
+        }
+        return back();
+    }
+
+
+    public function add_product_stock(Request $request){
+        $pro = product::find($request->pro_id);
+        $previous_stock = $pro->quantity;
+        $new_stock = $previous_stock + $request->stock;
+        $pro->quantity = $new_stock;
+        $pro->new_stock = $request->stock;
+        $pro->update();
+        return back()->with('success','Product Stock have been successfully Deleted.');
+    }
+
+    public function product_img($id){
+        $pro = product::where('id','=',$id)->first();
+        $m_image = $pro->m_image;
+        $h_image = $pro->h_image;
+        $other_images = $pro->other_images;
+        $other_images = explode(',',$other_images);
+        return response()->json([
+            'status'=>200,
+            'image' => $m_image,
+            'image1' => $h_image,
+            'image2' => $other_images,
+        ]);
     }
 
 

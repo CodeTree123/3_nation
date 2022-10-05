@@ -10,7 +10,7 @@ body {
 }
 
 .navbar {
-    width: 250px;
+    width: 200px;
     height: 100vh;
     position: fixed;
     margin-left: 0;
@@ -30,7 +30,7 @@ body {
 
 
 .my-container {
-    margin-left: 274px;
+    margin-left: 220px;
     transition: 0.4s;
 }
 
@@ -61,9 +61,9 @@ body {
 }
 
 .b-example-divider {
-    width: 1.5rem;
+    width: .8rem;
     height: 100%;
-    margin-left: 250px;
+    margin-left: 200px;
     position: fixed;
     background-color: rgba(0, 0, 0, .1);
     border: solid rgba(0, 0, 0, .15);

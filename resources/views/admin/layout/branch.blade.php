@@ -15,12 +15,12 @@
     <div class="alert alert-danger">{{Session::get('fail')}}</div>
     @endif
 
-    <table class="table">
+    <table class="table text-center align-middle" style="width: 80%;margin: 0 auto;">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Branch Name</th>
-      <!-- <th scope="col">Status</th> -->
+      <th scope="col">Status</th>
       <!-- <th scope="col">Action</th> -->
     </tr>
   </thead>
@@ -29,6 +29,13 @@
     <tr>
       <th scope="row">{{$key + 1}}</th>
       <td>{{$branch->branch_name}}</td>
+      <td>
+        @if($branch->branch_status == "1")
+        <a class="btn btn-sm btn-success" href="{{route('branch_status',[$branch->id])}}" role="button">Active</a>
+        @else
+        <a class="btn btn-sm btn-danger" href="{{route('branch_status',[$branch->id])}}" role="button">Inactive</a>
+        @endif
+      </td>
       {{-- <td>
         <button class="btn update_branch" value="{{$branch->id}}">Update</button>
         <button class="btn delete_branch" value="{{$branch->id}}">delete</button>

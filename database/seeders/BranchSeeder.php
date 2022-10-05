@@ -18,12 +18,15 @@ class BranchSeeder extends Seeder
     {
         branch::create([
             'branch_name' => 'Men',
+            'branch_status' => '1',
         ]);
         branch::create([
             'branch_name' => 'Women',
+            'branch_status' => '1',
         ]);
         branch::create([
             'branch_name' => 'Kids',
+            'branch_status' => '1',
         ]);
     }
 }

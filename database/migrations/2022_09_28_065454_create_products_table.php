@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('price')->nullable();
             $table->string('quantity')->nullable();
+            $table->string('stock_limit')->nullable();
+            $table->string('new_stock')->nullable();
             $table->string('color')->nullable();
             $table->string('size')->nullable();
             $table->string('m_image')->nullable();
