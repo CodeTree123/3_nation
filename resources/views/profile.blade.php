@@ -70,6 +70,7 @@
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
+                                                <th class="product-price text-center alt-font">Order No.</th>
                                                 <th class="product-price text-center alt-font">Images</th>
                                                 <th class="product-name alt-font">Product</th>
                                                 <th class="product-price text-center alt-font">Unit Price</th>
@@ -79,34 +80,42 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($orders as $order)
                                             <tr>
+                                                <td class="product-price text-center"><span class="amount">{{$order->order_id}}</span></td>
                                                 <td class="product-thumbnail text-center">
-                                                    <a href="#"><img src="assets/images/product-images/product-image8.jpg" alt="" title="" /></a>
+                                                    <a href="#"><img src="{{asset('uploads/product/'.$order->image)}}" alt="" title="" /></a>
                                                 </td>
-                                                <td class="product-name"><h4 class="no-margin"><a href="#">Minerva Dress black</a><span></span></h4>
+                                                <td class="product-name"><h4 class="no-margin"><a href="#">{{$order->product_name}}</a><span></span></h4>
                                                     <p><span class="fw-bold">Product Code: </span> 023154556</p>
                                                 </td>
-                                                <td class="product-price text-center"><span class="amount">165.00Tk,</span></td>
+                                                <td class="product-price text-center"><span class="amount">{{$order->sub_total}}Tk</span></td>
                                                 <td class="stock text-center">
+                                                    @if($order->order_status == 0)
+                                                    <span class="">Peinding</span>
+                                                    @else
                                                     <span class="">Delivered</span>
+                                                    @endif
                                                 </td>
-                                                <td class="product-price text-center"><span class="amount">1</span></td>
+                                                <td class="product-price text-center"><span class="amount">{{$order->order_quantity}}</span></td>
                                                 <td class="product-subtotal text-center"><button type="button" class="btn btn-small">Action</button></td>
                                             </tr>
-                                            <tr>
-                                                <td class="product-thumbnail text-center">
-                                                    <a href="#"><img src="assets/images/product-images/product-image4.jpg" alt="" title="" /></a>
-                                                </td>
-                                                <td class="product-name"><h4 class="no-margin"><a href="#">Sueded Cotton Pant in Khaki</a></h4>
-                                                    <p><span class="fw-bold">Product Code: </span> 023154556</p>
-                                                </td>
-                                                <td class="product-price text-center"><span class="amount">150.00Tk.</span></td>
-                                                <td class="stock text-center">
-                                                    <span class=" ">Pending</span>
-                                                </td>
-                                                <td class="product-price text-center"><span class="amount">1</span></td>
-                                                <td class="product-subtotal text-center"><button type="button" class="btn btn-small">Action</button></td>
-                                            </tr>
+                                            @endforeach
+
+{{--                                            <tr>--}}
+{{--                                                <td class="product-thumbnail text-center">--}}
+{{--                                                    <a href="#"><img src="assets/images/product-images/product-image4.jpg" alt="" title="" /></a>--}}
+{{--                                                </td>--}}
+{{--                                                <td class="product-name"><h4 class="no-margin"><a href="#">Sueded Cotton Pant in Khaki</a></h4>--}}
+{{--                                                    <p><span class="fw-bold">Product Code: </span> 023154556</p>--}}
+{{--                                                </td>--}}
+{{--                                                <td class="product-price text-center"><span class="amount">150.00Tk.</span></td>--}}
+{{--                                                <td class="stock text-center">--}}
+{{--                                                    <span class=" ">Pending</span>--}}
+{{--                                                </td>--}}
+{{--                                                <td class="product-price text-center"><span class="amount">1</span></td>--}}
+{{--                                                <td class="product-subtotal text-center"><button type="button" class="btn btn-small">Action</button></td>--}}
+{{--                                            </tr>--}}
 
                                         </tbody>
                                     </table>

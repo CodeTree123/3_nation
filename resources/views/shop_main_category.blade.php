@@ -1,5 +1,5 @@
 @include('include.header')
-
+@include('admin.include.errors')
 <!--Body Content-->
 <div id="page-content">
     <!--Collection Banner-->
@@ -222,9 +222,9 @@
                                     <!-- end product image -->
 
                                     <!-- Start product button -->
-                                    <form class="variants add" action="#" onclick="window.location.href='cart.html'" method="post">
-                                        <button class="btn btn-addto-cart" type="button">Add To Cart</button>
-                                    </form>
+{{--                                    <form class="variants add" action="#"  method="post">--}}
+                                        <a href="{{route('addtocart',[$product->id])}}" class="btn variants add btn-addto-cart" type="button">Add To Cart</a>
+{{--                                    </form>--}}
                                     <!-- countdown start -->
                                     <!-- <div class="saleTime desktop" data-countdown="2022/03/01"></div> -->
                                     <!-- countdown end -->

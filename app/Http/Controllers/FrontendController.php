@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\order;
 use App\Models\User;
 use App\Models\branch;
 use App\Models\catagory_info;
@@ -30,11 +31,13 @@ class FrontendController extends Controller
         $products = product::where('subcat_id','=',$id)->where('prostatus','1')->get();
         return view('shop_main_category',compact('subcat','products'));
     }
-    public function cart_list(){
+    public function cart(){
+
         return view('cart_list');
     }
     public function checkout(){
-        return view('checkout');
+        $user = User::where('id','=',auth()->id())->first();
+        return view('checkout',compact('user'));
     }
     public function login(){
         return view('login');
@@ -54,9 +57,11 @@ class FrontendController extends Controller
         $user = User::where('id','=',auth()->id())->first();
         return view('profile',compact('user'));
     }
-    public function order(){
+    public function order_list(){
         $user = User::where('id','=',auth()->id())->first();
-        return view('profile',compact('user'));
+        $orders = order::Join('suborders','orders.id','=','suborders.order_id')->where('orders.user_id','=',auth()->id())->get(['orders.*','suborders.*']);
+//        dd($orders);
+        return view('profile',compact('user','orders'));
     }
     public function about_us(){
         return view('about_us');
@@ -67,7 +72,5 @@ class FrontendController extends Controller
     public function terms_and_conditions(){
         return view('terms_and_conditions');
     }
-    public function cart(){
-        return view('cart_list');
-    }
+
 }

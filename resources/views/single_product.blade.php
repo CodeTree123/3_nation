@@ -26,7 +26,7 @@
                   <div class="lightboximages">
                     <a href="{{asset('uploads/product/'.$product->m_image)}}" data-size="1462x2048"></a>
                     <a href="{{asset('uploads/product/'.$product->h_image)}}" data-size="1462x2048"></a>
-                    @php 
+                    @php
                       $others_imgs = $product->other_images;
                       $others_imgs = explode(",",$others_imgs);
                     @endphp
@@ -46,7 +46,7 @@
                       <a data-image="{{asset('uploads/product/'.$product->h_image)}}" data-zoom-image="{{asset('uploads/product/'.$product->h_image)}}" class="slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" tabindex="-1">
                         <img class="blur-up lazyload" src="{{asset('uploads/product/'.$product->h_image)}}" alt="" />
                       </a>
-                      @php 
+                      @php
                         $other_imgs = $product->other_images;
                         $other_imgs = explode(",",$other_imgs);
                       @endphp
@@ -55,7 +55,7 @@
                         <img class="blur-up lazyload" src="{{asset('uploads/product/'.$other_img)}}" alt="" />
                       </a>
                       @endforeach
-                     
+
                     </div>
                   </div>
                 </div>
@@ -64,11 +64,11 @@
                     <h1 class="product-single__title">{{$product->product_name}}</h1>
 
                     <div class="prInfoRow">
-                      <div class="product-stock"> 
+                      <div class="product-stock">
                         @if($product->quantity != 0)
                         <span class="instock ">In Stock</span>
-                        @else 
-                        <span class="outstock">Unavailable</span> 
+                        @else
+                        <span class="outstock">Unavailable</span>
                         @endif
                       </div>
                       <div class="product-sku">SKU: <span class="variant-sku">{{$product->product_code}}</span>
@@ -88,7 +88,7 @@
                       <div class="swatch clearfix swatch-0 option1" data-option-index="0">
                         <div class="product-form__item">
                           <label class="header">Color: </label>
-                          @php 
+                          @php
                             $pro_colors = $product->color;
                             $pro_colors = explode(",",$pro_colors);
                           @endphp
@@ -112,7 +112,7 @@
                       <div class="swatch clearfix swatch-1 option2" data-option-index="1">
                         <div class="product-form__item">
                           <label class="header">Size:</label>
-                          @php 
+                          @php
                             $sizes = $product->size;
                             $sizes = explode(",",$sizes);
                           @endphp
@@ -154,9 +154,9 @@
                           </div>
                         </div>
                         <div class="product-form__item--submit">
-                          <button type="button" name="add" class="btn product-form__cart-submit">
+                          <a href="{{route('addtocart',[$product->id])}}" type="button" name="add" class="btn product-form__cart-submit">
                             <span id="AddToCartText-product-template">Order Now!</span>
-                          </button>
+                          </a>
                         </div>
                       </div>
                       <!-- End Product Action -->

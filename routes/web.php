@@ -3,6 +3,7 @@ use App\Http\Controllers\FrontendController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,13 +27,11 @@ Route::get('/footer',[FrontendController::class, 'footer'])->name('footer');
 // Route::get('/shop_main_category/{id}',[FrontendController::class, 'shop_main_category'])->name('shop_main_category');
 Route::get('/shop_main_category/{id}',[FrontendController::class, 'shop_main_category'])->name('shop_main_category');
 Route::get('/single_product/{id}',[FrontendController::class, 'single_product'])->name('single_product');
-Route::get('/cart',[FrontendController::class, 'cart'])->name('cart');
-Route::get('/checkout',[FrontendController::class, 'checkout'])->name('checkout');
 Route::get('/about_us',[FrontendController::class, 'about_us'])->name('about_us');
 
 Route::get('/profile',[FrontendController::class, 'profile'])->name('profile');
 Route::get('/change_password',[FrontendController::class, 'change_password'])->name('change_password_view');
-Route::get('/order',[FrontendController::class, 'order'])->name('order');
+Route::get('/order',[FrontendController::class, 'order_list'])->name('order');
 
 Route::get('/privacy_policy',[FrontendController::class, 'privacy_policy'])->name('privacy_policy');
 Route::get('/terms_and_conditions',[FrontendController::class, 'terms_and_conditions'])->name('terms_and_conditions');
@@ -42,6 +41,17 @@ Route::post('/register',[AuthController::class, 'register'])->name('register');
 Route::get('/login',[FrontendController::class, 'login'])->name('login_view');
 Route::post('/login',[AuthController::class, 'login'])->name('login');
 Route::post('/change_password',[AuthController::class, 'change_password'])->name('change_password');
+
+// Cart
+Route::get('/cart',[FrontendController::class, 'cart'])->name('cart');
+Route::get('cart/addtocart/{id}',[CartController::class,'addtocart'])->name('addtocart');
+Route::put('cart/updatecart',[CartController::class,'updatecart'])->name('updatecart');
+Route::get('/cart/delete/{id}',[CartController::class,'cartdelete'])->name('cartdelete');
+Route::get('/cart/checkout',[FrontendController::class, 'checkout'])->name('checkout_view');
+Route::post('/checkout',[CartController::class, 'checkout'])->name('checkout');
+
+
+
 
 Route::get('/admin',[FrontendController::class, 'admin_index'])->name('admin_index');
 // Route::post('/shop/edit_profile',[ShopController::class,'shop_edit_profile'])->name('shop_edit_profile');

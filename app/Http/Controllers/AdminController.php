@@ -226,8 +226,8 @@ class AdminController extends Controller
             'other_images' => $filename_others,
             'prostatus' => $request->p_status,
         ]);
-
-        return back()->with('success','Product information have been successfully Added.');
+        session()->flash('success', 'Product is Added to Cart Successfully !');
+        return back();
     }
 
     public function product_edit($id){

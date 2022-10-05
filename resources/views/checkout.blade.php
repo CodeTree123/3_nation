@@ -1,6 +1,6 @@
 @include('include.header')
 
-    
+
     <!--Body Content-->
     <div id="page-content">
     	<!--Page Title-->
@@ -10,7 +10,7 @@
       		</div>
 		</div>
         <!--End Page Title-->
-        
+
         <div class="container">
         	<!-- <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-3">
@@ -63,212 +63,139 @@
                     </div>
                 </div>
             </div> -->
+            <form action="{{route('checkout')}}" method="post">
+                @csrf
+                <div class="row billing-fields">
 
-            <div class="row billing-fields">
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
-                    <div class="create-ac-content bg-light-gray padding-20px-all">
-                        <form>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
+                        <div class="create-ac-content bg-light-gray padding-20px-all">
                             <fieldset>
                                 <h2 class="login-title mb-3">Billing details</h2>
                                 <div class="row">
                                     <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                                         <label for="input-firstname">First Name <span class="required-f">*</span></label>
-                                        <input name="firstname" value="" id="input-firstname" type="text">
+                                        <input name="firstname" value="{{$user->first_name}}" id="input-firstname" type="text">
                                     </div>
                                     <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                                         <label for="input-lastname">Last Name <span class="required-f">*</span></label>
-                                        <input name="lastname" value="" id="input-lastname" type="text">
+                                        <input name="lastname" value="{{$user->last_name}}" id="input-lastname" type="text">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                                         <label for="input-email">E-Mail <span class="required-f">*</span></label>
-                                        <input name="email" value="" id="input-email" type="email">
+                                        <input name="email" value="{{$user->email}}" id="input-email" type="email">
                                     </div>
                                     <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                                         <label for="input-telephone">Telephone <span class="required-f">*</span></label>
-                                        <input name="telephone" value="" id="input-telephone" type="tel">
+                                        <input name="telephone" value="{{$user->phone}}" id="input-telephone" type="tel">
                                     </div>
                                 </div>
                             </fieldset>
 
                             <fieldset>
-                                <div class="row"> 
+                                <div class="row">
                                     <div class="form-group col-md-12 col-lg-12 col-xl-12 required">
                                         <label for="input-address-1">Address <span class="required-f">*</span></label>
                                         <input name="address_1" value="" id="input-address-1" type="text">
                                     </div>
                                 </div>
-                            
-                           
-                         
+
+
+
                             </fieldset>
 
-                           
+
 
                             <fieldset>
                                 <div class="row">
                                     <div class="form-group col-md-12 col-lg-12 col-xl-12">
                                         <label for="input-company">Order Notes <span class="required-f">*</span></label>
-                                        <textarea class="form-control resize-both" rows="3"></textarea>
+                                        <textarea class="form-control resize-both" rows="3" name="order_note"></textarea>
                                     </div>
                                 </div>
                             </fieldset>
-                        </form>
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                    <div class="your-order-payment">
-                        <div class="your-order">
-                            <h2 class="order-title mb-4">Your Order</h2>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="your-order-payment">
+                            <div class="your-order">
+                                <h2 class="order-title mb-4">Your Order</h2>
 
-                            <div class="table-responsive-sm order-table"> 
-                                <table class="bg-white table table-bordered table-hover text-center">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-left">Product Name</th>
-                                            <th>Price</th>
-                                            <th>Size</th>
-                                            <th>Qty</th>
-                                            <th>Subtotal</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-left">Women Jacket</td>
-                                            <td>Tk.600</td>
-                                            <td>S</td>
-                                            <td>1</td>
-                                            <td>Tk.600</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-left">Kids Sweater</td>
-                                            <td>Tk.200</td>
-                                            <td>M</td>
-                                            <td>2</td>
-                                            <td>Tk.200</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-left">Kid Girl Dress</td>
-                                            <td>Tk.300</td>
-                                            <td>XL</td>
-                                            <td>3</td>
-                                            <td>Tk.300</td>
-                                        </tr>
-                                    </tbody>
-                                    <tfoot class="font-weight-600">
-                                        <tr>
-                                            <td colspan="4" class="text-right">Shipping </td>
-                                            <td>Tk.50.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4" class="text-right">Total</td>
-                                            <td>Tk.1150.00</td>
-                                        </tr>
-                                    </tfoot>
-                                </table>
+                                <div class="table-responsive-sm order-table">
+                                    <table class="bg-white table table-bordered table-hover text-center">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-left">Product Name</th>
+                                                <th>Price</th>
+                                                <th>Size</th>
+                                                <th>Qty</th>
+                                                <th>Subtotal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @php
+                                            $carts = cart();
+                                        @endphp
+                                        @foreach($carts as $cart)
+                                            <tr>
+                                                <td class="text-left">{{ $cart->name }}</td>
+                                                <td>Tk.{{ $cart->price }}</td>
+                                                <td>S</td>
+                                                <td>{{ $cart->qty }}</td>
+                                                <td>Tk.{{ $cart->subtotal }}</td>
+                                            </tr>
+                                        @endforeach
+    {{--                                        <tr>--}}
+    {{--                                            <td class="text-left">Kids Sweater</td>--}}
+    {{--                                            <td>Tk.200</td>--}}
+    {{--                                            <td>M</td>--}}
+    {{--                                            <td>2</td>--}}
+    {{--                                            <td>Tk.200</td>--}}
+    {{--                                        </tr>--}}
+    {{--                                        <tr>--}}
+    {{--                                            <td class="text-left">Kid Girl Dress</td>--}}
+    {{--                                            <td>Tk.300</td>--}}
+    {{--                                            <td>XL</td>--}}
+    {{--                                            <td>3</td>--}}
+    {{--                                            <td>Tk.300</td>--}}
+    {{--                                        </tr>--}}
+                                        </tbody>
+                                        <tfoot class="font-weight-600">
+                                            <tr>
+                                                <td colspan="4" class="text-right">Sub Total </td>
+                                                <td>Tk.{{ Cart::subtotal() }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4" class="text-right">Sub Total </td>
+                                                <td>Tk.{{ Cart::tax() }}</td>
+                                            </tr>
+    {{--                                        <tr>--}}
+    {{--                                            <td colspan="4" class="text-right">Shipping </td>--}}
+    {{--                                            <td>Tk.50.00</td>--}}
+    {{--                                        </tr>--}}
+                                            <tr>
+                                                <td colspan="4" class="text-right">Total</td>
+                                                <td>Tk.{{ Cart::total() }}</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div class="order-button-payment">
+                                <button class="btn" value="Place order" type="submit">Place order</button>
                             </div>
                         </div>
-                        
-                        <hr />
-
-                        <!-- <div class="your-payment">
-                            <h2 class="payment-title mb-3">payment method</h2>
-                            <div class="payment-method">
-                                <div class="payment-accordion">
-                                    <div id="accordion" class="payment-section">
-                                        <div class="card mb-2">
-                                            <div class="card-header">
-                                                <a class="card-link" data-toggle="collapse" href="#collapseOne">Direct Bank Transfer </a>
-                                            </div>
-                                            <div id="collapseOne" class="collapse" data-parent="#accordion">
-                                                <div class="card-body">
-                                                    <p class="no-margin font-15">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won't be shipped until the funds have cleared in our account.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card mb-2">
-                                            <div class="card-header">
-                                                <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">Cheque Payment</a>
-                                            </div>
-                                            <div id="collapseTwo" class="collapse" data-parent="#accordion">
-                                                <div class="card-body">
-                                                    <p class="no-margin font-15">Please send your cheque to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card margin-15px-bottom border-radius-none">
-                                            <div class="card-header">
-                                                <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree"> PayPal </a>
-                                            </div>
-                                            <div id="collapseThree" class="collapse" data-parent="#accordion">
-                                                <div class="card-body">
-                                                    <p class="no-margin font-15">Pay via PayPal; you can pay with your credit card if you don't have a PayPal account.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card mb-2">
-                                            <div class="card-header">
-                                                <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour"> Payment Information </a>
-                                            </div>
-                                            <div id="collapseFour" class="collapse" data-parent="#accordion">
-                                                <div class="card-body">
-                                                    <fieldset>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                                                <label for="input-cardname">Name on Card <span class="required-f">*</span></label>
-                                                                <input name="cardname" value="" placeholder="Card Name" id="input-cardname" class="form-control" type="text">
-                                                            </div>
-                                                            <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                                                <label for="input-country">Credit Card Type <span class="required-f">*</span></label>
-                                                                <select name="country_id" class="form-control">
-                                                                    <option value=""> --- Please Select --- </option>
-                                                                    <option value="1">American Express</option>
-                                                                    <option value="2">Visa Card</option>
-                                                                    <option value="3">Master Card</option>
-                                                                    <option value="4">Discover Card</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                                                <label for="input-cardno">Credit Card Number  <span class="required-f">*</span></label>
-                                                                <input name="cardno" value="" placeholder="Credit Card Number" id="input-cardno" class="form-control" type="text">
-                                                            </div>
-                                                            <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                                                <label for="input-cvv">CVV Code <span class="required-f">*</span></label>
-                                                                <input name="cvv" value="" placeholder="Card Verification Number" id="input-cvv" class="form-control" type="text">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                                                <label>Expiration Date <span class="required-f">*</span></label>
-                                                                <input type="date" name="exdate" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                                                <img class="padding-25px-top xs-padding-5px-top" src="assets/images/payment-img.jpg" alt="card" title="card" />
-                                                            </div>
-                                                        </div>
-                                                    </fieldset>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="order-button-payment">
-                                    <button class="btn" value="Place order" type="submit">Place order</button>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
-        
+
     </div>
     <!--End Body Content-->
-    
+
     @include('include.footer')
