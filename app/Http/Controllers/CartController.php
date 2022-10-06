@@ -48,16 +48,17 @@ class CartController extends Controller
 
         $carts=Cart::content();
 
-
+        $cart_count = Cart::count();
 //        $subtotal=Cart::SubTotal();
         $total=Cart::Total();
 
-//        dd($request->all(),$total,$subtotal);
+    //    dd($request->all(),$total,$cart_count);
 
         $order=order::create([
             'user_id'=>auth()->user()->id,
             'address'=>$request->address_1,
             'notes'=>$request->order_note,
+            'total_items'=>$cart_count,
             'total_price'=>$total,
         ]);
 //        dd($order);

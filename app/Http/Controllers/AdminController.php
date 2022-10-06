@@ -8,6 +8,8 @@ use App\Models\branch;
 use App\Models\catagory_info;
 use App\Models\subcatagory_info;
 use App\Models\product;
+use App\Models\order;
+use App\Models\suborder;
 use File;
 use Image;
 
@@ -390,7 +392,9 @@ class AdminController extends Controller
             'status'=>200,
             'all_image' => $images,
         ]);
-    }public function product_description($id){
+    }
+    
+    public function product_description($id){
         $des = product::where('id','=',$id)->first()->description;
         return response()->json([
             'status'=>200,
@@ -398,6 +402,51 @@ class AdminController extends Controller
         ]);
     }
 
+    public function order_list(){
+        $orders = order::Join('users','orders.user_id','=','users.id')->get(['orders.*','users.first_name','users.last_name','users.email','users.phone']);
+        // dd($orders);
+        return view('admin.layout.order',compact('orders'));
+    }
+
+    public function order_view($id){
+        $order = suborder::where('order_id','=',$id)->get();
+        $order_total = order::where('id','=',$id)->first()->total_price;
+        $subtotal = $order->sum('sub_total');
+        $vat = round($order_total - $subtotal,2);
+        // dd($order_total,$subtotal,$vat);
+        return response()->json([
+            'status'=>200,
+            'order' => $order,
+            'order_total' => $order_total,
+            'subtotal' => $subtotal,
+            'vat' => $vat,
+        ]);
+    }
+
+    public function ordre_status($id){
+
+        $getStatus = order::find($id);
+        // dd($getStatus);
+        if($getStatus->order_status == 1){
+            $status = 0;
+        }else{
+            $status = 1;
+        }
+        if($status == 1){
+            order::where('id','=',$id)->update(['order_status'=>$status]);
+        }else{
+            order::where('id','=',$id)->update(['order_status'=>$status]);
+        }
+        return back();
+    }
+    public function order_delete(Request $request){
+        $order_id = order::find($request->deletingId);
+        $order_id->delete();
+        
+        $suborder = suborder::where('order_id',$request->deletingId);
+        $suborder->delete();
+        return back()->with('success','Order have been successfully Deleted.');
+    }
 
 }
 

@@ -18,7 +18,7 @@
                             <a class="tablink {{request()->is('change_password') ? 'active' : ''}}" href="{{url('/change_password')}}" role="tab" aria-controls="pills-profile" aria-selected="false">Change Password</a>
                         </li>
                         <li class="nav-item">
-                            <a class="tablink {{request()->is('order') ? 'active' : ''}}" href="{{url('/order')}}" role="tab" aria-controls="pills-contact" aria-selected="false">View My Order</a>
+                            <a class="tablink {{request()->is('my_order') ? 'active' : ''}}" href="{{url('/my_order')}}" role="tab" aria-controls="pills-contact" aria-selected="false">View My Order</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
@@ -65,31 +65,23 @@
                             <input type="submit" class="spr-button spr-button-primary button button-primary btn btn-primary" value="Confrim">
                         </form>
                     </div>
-                    <div class="tab-pane {{request()->is('order') ? 'active' : ''}}" id="{{url('/order')}}" role="tabpanel" aria-labelledby="pills-contact-tab">
+                    <div class="tab-pane {{request()->is('my_order') ? 'active' : ''}}" id="{{url('/my_order')}}" role="tabpanel" aria-labelledby="pills-contact-tab">
                             <div class="wishlist-table table-content table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th class="product-price text-center alt-font">Order No.</th>
-                                                <th class="product-price text-center alt-font">Images</th>
-                                                <th class="product-name alt-font">Product</th>
-                                                <th class="product-price text-center alt-font">Unit Price</th>
-                                                <th class="stock-status text-center alt-font">Order Status</th>
                                                 <th class="stock-status text-center alt-font">Ordered Quantity</th>
+                                                <th class="stock-status text-center alt-font">Order Status</th>
+                                                <th class="product-subtotal text-center alt-font">Details</th>
                                                 <th class="product-subtotal text-center alt-font">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($orders as $order)
                                             <tr>
-                                                <td class="product-price text-center"><span class="amount">{{$order->order_id}}</span></td>
-                                                <td class="product-thumbnail text-center">
-                                                    <a href="#"><img src="{{asset('uploads/product/'.$order->image)}}" alt="" title="" /></a>
-                                                </td>
-                                                <td class="product-name"><h4 class="no-margin"><a href="#">{{$order->product_name}}</a><span></span></h4>
-                                                    <p><span class="fw-bold">Product Code: </span> 023154556</p>
-                                                </td>
-                                                <td class="product-price text-center"><span class="amount">{{$order->sub_total}}Tk</span></td>
+                                                <td class="product-price text-center"><span class="amount">{{$order->id}}</span></td>
+                                                <td class="product-price text-center"><span class="amount">{{$order->total_items}}</span></td>
                                                 <td class="stock text-center">
                                                     @if($order->order_status == 0)
                                                     <span class="">Peinding</span>
@@ -97,25 +89,14 @@
                                                     <span class="">Delivered</span>
                                                     @endif
                                                 </td>
-                                                <td class="product-price text-center"><span class="amount">{{$order->order_quantity}}</span></td>
-                                                <td class="product-subtotal text-center"><button type="button" class="btn btn-small">Action</button></td>
+                                                <td class="product-subtotal text-center">
+                                                    <button type="button" class="btn btn-small view_order" value="{{$order->id}}">View</button>
+                                                </td>
+                                                <td class="product-subtotal text-center">
+                                                    <button type="button" class="btn btn-small delete_order" value="{{$order->id}}" {{$order->order_status == 0 ? '' :'disabled'}}>Cancel</button>
+                                                </td>
                                             </tr>
                                             @endforeach
-
-{{--                                            <tr>--}}
-{{--                                                <td class="product-thumbnail text-center">--}}
-{{--                                                    <a href="#"><img src="assets/images/product-images/product-image4.jpg" alt="" title="" /></a>--}}
-{{--                                                </td>--}}
-{{--                                                <td class="product-name"><h4 class="no-margin"><a href="#">Sueded Cotton Pant in Khaki</a></h4>--}}
-{{--                                                    <p><span class="fw-bold">Product Code: </span> 023154556</p>--}}
-{{--                                                </td>--}}
-{{--                                                <td class="product-price text-center"><span class="amount">150.00Tk.</span></td>--}}
-{{--                                                <td class="stock text-center">--}}
-{{--                                                    <span class=" ">Pending</span>--}}
-{{--                                                </td>--}}
-{{--                                                <td class="product-price text-center"><span class="amount">1</span></td>--}}
-{{--                                                <td class="product-subtotal text-center"><button type="button" class="btn btn-small">Action</button></td>--}}
-{{--                                            </tr>--}}
 
                                         </tbody>
                                     </table>
@@ -128,4 +109,120 @@
         </div>
     </div>
 
+
+    <!-- Modal for view Order -->
+<div class="modal fade" id="viewOrder" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">View Order <span id="order_no"></span></h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table text-center align-middle">
+                    <thead>
+                    <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Sub Total</th>
+                    </tr>
+                    </thead>
+                    <tbody id="view">
+                        
+                   
+                    </tbody>
+                    <tfoot id="total">
+                        
+                    </tfoot>
+                </table>
+            </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal for delete order -->
+<div class="modal fade" id="DeleteOrder" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Delete Order</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{route('my_order_delete')}}" method="post">
+             @csrf
+             @method('delete')
+                <div class="mb-3 text-center">
+                    <h5 class="text-danger">Are You Sure to Delete This Catagory?</h5>
+                </div>
+                <input type="text" class="form-control" id="del_order_id" name="deletingId">
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Yes,Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
         @include('include.footer')
+<script>
+    $(document).ready(function(){
+
+        window.setTimeout(function(){
+            $(".test").alert('close');
+        },2000);
+
+        $(document).on('click', '.view_order',function(){
+            var order_id = $(this).val();
+            $("#viewOrder").modal('show');
+            $("#order_no").text(order_id);
+            $.ajax({
+                    type:"GET",
+                    url: "/admin/product/order/view/"+order_id,
+                    success: function(response){
+                        console.log(response.order);
+
+                        $("#view").html("");
+                        $.each(response.order, function (i,item){
+
+                            $("#view").append('\
+                                <tr>\
+                                    <td>'+item.product_name+'</td>\
+                                    <td><img src="/uploads/product/'+item.image+'" class="shop_image_view"></td>\
+                                    <td>'+item.order_quantity+'</td>\
+                                    <td>'+item.sub_total+'</td>\
+                                </tr>\
+                            ');
+                        });
+                        $("#total").html("");
+                        $("#total").append('\
+                            <tr>\
+                                <td colspan="4" style="text-align:end">Sub Total</td>\
+                                <td >'+response.subtotal+'</td>\
+                            </tr>\
+                            <tr>\
+                                <td colspan="4" style="text-align:end">Vat</td>\
+                                <td >'+response.vat+'</td>\
+                            </tr>\
+                            <tr>\
+                                <td colspan="4" style="text-align:end">Total</td>\
+                                <td >'+response.order_total+'</td>\
+                            </tr>\
+                        ');
+
+                    }
+                });
+        });
+
+        $(document).on('click', '.delete_order',function(){
+            var deleteId = $(this).val();
+            $("#DeleteOrder").modal('show');
+            $('#del_order_id').val(deleteId);
+        });
+
+    });
+</script>

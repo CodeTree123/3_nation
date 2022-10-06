@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\order;
+use App\Models\suborder;
 use App\Models\User;
 use App\Models\branch;
 use App\Models\catagory_info;
@@ -51,17 +52,27 @@ class FrontendController extends Controller
     }
     public function profile(){
         $user = User::where('id','=',auth()->id())->first();
-        return view('profile',compact('user'));
+        $orders = order::Join('suborders','orders.id','=','suborders.order_id')->where('orders.user_id','=',auth()->id())->get(['orders.*','suborders.*']);
+        return view('profile',compact('user','orders'));
     }
     public function change_password(){
         $user = User::where('id','=',auth()->id())->first();
-        return view('profile',compact('user'));
-    }
-    public function order_list(){
-        $user = User::where('id','=',auth()->id())->first();
         $orders = order::Join('suborders','orders.id','=','suborders.order_id')->where('orders.user_id','=',auth()->id())->get(['orders.*','suborders.*']);
+        return view('profile',compact('user','orders'));
+    }
+    public function my_order_list(){
+        $user = User::where('id','=',auth()->id())->first();
+        $orders = order::where('orders.user_id','=',auth()->id())->get();
 //        dd($orders);
         return view('profile',compact('user','orders'));
+    }
+    public function my_order_delete(Request $request){
+        $order_id = order::where('id','=',$request->deletingId)->where('user_id','=',auth()->id());
+        $order_id->delete();
+        
+        $suborder = suborder::where('order_id',$request->deletingId)->where('user_id','=',auth()->id());
+        $suborder->delete();
+        return back()->with('success','Order have been successfully Deleted.');
     }
     public function about_us(){
         return view('about_us');

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('user_id')->nullable();
             $table->string('address')->nullable();
             $table->string('notes')->nullable();
+            $table->string('total_items')->nullable();
             $table->string('total_price')->nullable();
             $table->boolean('order_status')->default(0);
             $table->timestamps();

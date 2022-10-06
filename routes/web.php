@@ -31,7 +31,9 @@ Route::get('/about_us',[FrontendController::class, 'about_us'])->name('about_us'
 
 Route::get('/profile',[FrontendController::class, 'profile'])->name('profile');
 Route::get('/change_password',[FrontendController::class, 'change_password'])->name('change_password_view');
-Route::get('/order',[FrontendController::class, 'order_list'])->name('order');
+Route::get('/my_order',[FrontendController::class, 'my_order_list'])->name('my_order');
+Route::delete('/my_order/delete', [FrontendController::class, 'my_order_delete'])->name('my_order_delete');
+
 
 Route::get('/privacy_policy',[FrontendController::class, 'privacy_policy'])->name('privacy_policy');
 Route::get('/terms_and_conditions',[FrontendController::class, 'terms_and_conditions'])->name('terms_and_conditions');
@@ -83,12 +85,18 @@ Route::get('/admin/product/edit/{id}', [AdminController::class, 'product_edit'])
 Route::put('/admin/product/update', [AdminController::class, 'product_update'])->name('product_update');
 Route::delete('/admin/product/delete', [AdminController::class, 'product_delete'])->name('product_delete');
 Route::get('admin/product/status/{id}', [AdminController::class, 'product_status'])->name('product_status');
+Route::get('/admin/product/image/{id}', [AdminController::class, 'product_img'])->name('product_img');
+Route::get('/admin/product/description/{id}', [AdminController::class, 'product_description'])->name('product_description');
 
 //Product Stock Route
 Route::put('/admin/product/add_stock', [AdminController::class, 'add_product_stock'])->name('add_product_stock');
+Route::get('/admin/product/order/status/{id}', [AdminController::class, 'ordre_status'])->name('ordre_status');
+Route::delete('/admin/product/order-delete', [AdminController::class, 'order_delete'])->name('order_delete');
 
-Route::get('/admin/product/image/{id}', [AdminController::class, 'product_img'])->name('product_img');
-Route::get('/admin/product/description/{id}', [AdminController::class, 'product_description'])->name('product_description');
+
+//Product orders
+Route::get('/admin/product/order', [AdminController::class, 'order_list'])->name('order_list');
+Route::get('/admin/product/order/view/{id}', [AdminController::class, 'order_view'])->name('order_view');
 
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

@@ -17,15 +17,15 @@ class BranchSeeder extends Seeder
     public function run()
     {
         branch::create([
-            'branch_name' => 'Men',
+            'branch_name' => 'Men',//id=1
             'branch_status' => '1',
         ]);
         branch::create([
-            'branch_name' => 'Women',
+            'branch_name' => 'Women',//id=2
             'branch_status' => '1',
         ]);
         branch::create([
-            'branch_name' => 'Kids',
+            'branch_name' => 'Kids',//id=3
             'branch_status' => '1',
         ]);
     }
