@@ -50,16 +50,17 @@
                             <!-- <p>Our most popular products based on sales</p> -->
                         </div>
 						<div class="productSlider grid-products">
+                            @forelse($women as $woman)
                             <div class="col-12 item">
                                 <!-- start product image -->
                                 <div class="product-image">
                                     <!-- start product image -->
                                     <a href="#" class="grid-view-item__link">
                                         <!-- image -->
-                                        <img class="primary blur-up lazyload" data-src="assets/images/product-images/product-image1.jpg" src="assets/images/product-images/product-image1.jpg" alt="image" title="product">
+                                        <img class="primary blur-up lazyload" data-src="{{asset('/uploads/product/'.$woman->m_image)}}" src="{{asset('/uploads/product/'.$woman->m_image)}}" alt="image" title="product">
                                         <!-- End image -->
                                         <!-- Hover image -->
-                                        <img class="hover blur-up lazyload" data-src="assets/images/product-images/product-image1-1.jpg" src="assets/images/product-images/product-image1-1.jpg" alt="image" title="product">
+                                        <img class="hover blur-up lazyload" data-src="{{asset('/uploads/product/'.$woman->h_image)}}" src="{{asset('/uploads/product/'.$woman->h_image)}}" alt="image" title="product">
                                         <!-- End hover image -->
                                         <!-- Variant Image-->
                                         <img class="grid-view-item__image hover variantImg" src="assets/images/product-images/product-image1.jpg" alt="image" title="product">
@@ -83,192 +84,26 @@
                                 <div class="product-details text-center">
                                     <!-- product name -->
                                     <div class="product-name">
-                                        <a href="#">Woman Jacket</a>
+                                        <a href="#">{{$woman->product_name}}</a>
                                     </div>
                                     <!-- End product name -->
                                     <!-- product price -->
                                     <div class="product-price">
-                                        <span class="old-price">৳500.00</span>
-                                        <span class="price">৳600.00</span>
+                                        <!-- <span class="old-price">৳500.00</span> -->
+                                        <span class="price">৳{{$woman->price}}</span>
                                     </div>
                                     <!-- End product price -->
                                    
                                 </div>
                                 <!-- End product details -->
                             </div>
+                            @empty
                             <div class="col-12 item">
                                 <!-- start product image -->
-                                <div class="product-image">
-                                    <!-- start product image -->
-                                    <a href="#" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="primary blur-up lazyload" data-src="assets/images/product-images/product-image2.jpg" src="assets/images/product-images/product-image2.jpg" alt="image" title="product">
-                                        <!-- End image -->
-                                        <!-- Hover image -->
-                                        <img class="hover blur-up lazyload" data-src="assets/images/product-images/product-image2-1.jpg" src="assets/images/product-images/product-image2-1.jpg" alt="image" title="product">
-                                        <!-- End hover image -->
-                                        <!-- Variant Image-->
-                                        <img class="grid-view-item__image hover variantImg" src="assets/images/product-images/product-image1.jpg" alt="image" title="product">
-                                        <!-- Variant Image-->
-                                    </a>
-                                    <!-- end product image -->
-
-                                    <!-- Start product button -->
-                                    <form class="variants add" action="#" onclick="window.location.href='cart.html'"method="post">
-                                        <button class="btn btn-addto-cart" type="button" tabindex="0">Select Options</button>
-                                    </form>
-                              
-                                    <!-- end product button -->
-                                </div>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details text-center">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">Woman Dress</a>
-                                    </div>
-                                    <!-- End product name -->
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="price">৳748.00</span>
-                                    </div>
-                                    <!-- End product price -->
-                                  
-                                </div>
+                               <h4>There are no product available now.</h4>
                                 <!-- End product details -->
                             </div>
-                            <div class="col-12 item">
-                                <!-- start product image -->
-                                <div class="product-image">
-                                    <!-- start product image -->
-                                   <a href="#" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="primary blur-up lazyload" data-src="assets/images/product-images/product-image3.jpg" src="assets/images/product-images/product-image3.jpg" alt="image" title="product">
-                                        <!-- End image -->
-                                        <!-- Hover image -->
-                                        <img class="hover blur-up lazyload" data-src="assets/images/product-images/product-image3-1.jpg" src="assets/images/product-images/product-image3-1.jpg" alt="image" title="product">
-                                        <!-- End hover image -->
-                                        <!-- Variant Image-->
-                                        <img class="grid-view-item__image hover variantImg" src="assets/images/product-images/product-image3.jpg" alt="image" title="product">
-                                        <!-- Variant Image-->
-                                         
-                                    </a>
-                                    <!-- end product image -->
-
-                                    <!-- Start product button -->
-                                    <form class="variants add" action="#" onclick="window.location.href='cart.html'"method="post">
-                                        <button class="btn btn-addto-cart" type="button" tabindex="0">Add To Cart</button>
-                                    </form>
-                                  
-                                    <!-- end product button -->
-                                </div>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details text-center">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">Woman Dress 2</a>
-                                    </div>
-                                    <!-- End product name -->
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="price">৳550.00</span>
-                                    </div>
-                                    <!-- End product price -->
-                                
-                                </div>
-                                <!-- End product details -->
-                            </div>
-                            <div class="col-12 item">
-                                <!-- start product image -->
-                                <div class="product-image">
-                                    <!-- start product image -->
-                                    <a href="#" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="primary blur-up lazyload" data-src="assets/images/product-images/product-image4.jpg" src="assets/images/product-images/product-image4.jpg" alt="image" title="product" />
-                                        <!-- End image -->
-                                        <!-- Hover image -->
-                                        <img class="hover blur-up lazyload" data-src="assets/images/product-images/product-image4-1.jpg" src="assets/images/product-images/product-image4-1.jpg" alt="image" title="product" />
-                                        <!-- End hover image -->
-                                        <!-- Variant Image-->
-                                        <img class="grid-view-item__image hover variantImg" src="assets/images/product-images/product-image3.jpg" alt="image" title="product">
-                                        <!-- Variant Image-->
-                                        <!-- product label -->
-                                        <!-- <div class="product-labels rounded"><span class="lbl on-sale">Sale</span></div> -->
-                                        <!-- End product label -->
-                                    </a>
-                                    <!-- end product image -->
-
-                                    <!-- Start product button -->
-                                    <form class="variants add" action="#" onclick="window.location.href='cart.html'"method="post">
-                                        <button class="btn btn-addto-cart" type="button" tabindex="0">Add To Cart</button>
-                                    </form>
-                                   
-                                    <!-- end product button -->
-                                </div>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details text-center">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">Woman Dress 3</a>
-                                    </div>
-                                    <!-- End product name -->
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="old-price">৳900.00</span>
-                                        <span class="price">৳788.00</span>
-                                    </div>
-                                    <!-- End product price -->
-                                    
-                                </div>
-                                <!-- End product details -->
-                            </div>
-                            <div class="col-12 item">
-                                <!-- start product image -->
-                                <div class="product-image">
-                                    <!-- start product image -->
-                                    <a href="#" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="primary blur-up lazyload" data-src="assets/images/product-images/product-image5.jpg" src="assets/images/product-images/product-image5.jpg" alt="image" title="product" />
-                                        <!-- End image -->
-                                        <!-- Hover image -->
-                                        <img class="hover blur-up lazyload" data-src="assets/images/product-images/product-image5-1.jpg" src="assets/images/product-images/product-image5-1.jpg" alt="image" title="product" />
-                                        <!-- End hover image -->
-                                        <!-- Variant Image-->
-                                        <img class="grid-view-item__image hover variantImg" src="assets/images/product-images/product-image5.jpg" alt="image" title="product">
-                                        <!-- Variant Image-->
-                                    </a>
-                                    <!-- end product image -->
-
-                                    <!-- Start product button -->
-                                    <form class="variants add" action="#" onclick="window.location.href='cart.html'"method="post">
-                                        <button class="btn btn-addto-cart" type="button" tabindex="0">Select Options</button>
-                                    </form>
-                                  
-                                    <!-- end product button -->
-                                </div>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details text-center">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">Woman Dress 4</a>
-                                    </div>
-                                    <!-- End product name -->
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="price">৳550.00</span>
-                                    </div>
-                                    <!-- End product price -->
-                              
-                                </div>
-                                <!-- End product details -->
-                            </div>
+                            @endforelse
                         </div>
                     </div>
             	</div>    
@@ -300,20 +135,19 @@
                             <!-- <p>Our most popular products based on sales</p> -->
                         </div>
 						<div class="productSlider grid-products">
+                            @forelse ($men as $man)
                             <div class="col-12 item">
                                 <!-- start product image -->
                                 <div class="product-image">
                                     <!-- start product image -->
                                     <a href="#" class="grid-view-item__link">
                                         <!-- image -->
-                                        <img class="primary blur-up lazyload" data-src="assets/images/product-images/men_shirt_1.jpg" src="assets/images/product-images/men_shirt_1.jpg" alt="image" title="product">
+                                        <img class="primary blur-up lazyload" data-src="{{asset('/uploads/product/'.$man->m_image)}}" src="{{asset('/uploads/product/'.$man->m_image)}}" alt="image" title="product">
                                         <!-- End image -->
                                         <!-- Hover image -->
-                                        <img class="hover blur-up lazyload" data-src="assets/images/product-images/men_shirt_1_1.jpg" src="assets/images/product-images/men_shirt_1_1.jpg" alt="image" title="product">
+                                        <img class="hover blur-up lazyload" data-src="{{asset('/uploads/product/'.$man->h_image)}}" src="{{asset('/uploads/product/'.$man->h_image)}}" alt="image" title="product">
                                         <!-- End hover image -->
-                                        <!-- Variant Image-->
-                                        <img class="grid-view-item__image hover variantImg" src="assets/images/product-images/men_shirt_1.jpg" alt="image" title="product">
-                                        <!-- Variant Image-->
+
                                         <!-- product label -->
                                         <!-- <div class="product-labels rounded"><span class="lbl on-sale">Sale</span> <span class="lbl pr-label1">new</span></div> -->
                                         <!-- End product label -->
@@ -333,192 +167,26 @@
                                 <div class="product-details text-center">
                                     <!-- product name -->
                                     <div class="product-name">
-                                        <a href="#">Men Shirt</a>
+                                        <a href="#">{{$man->product_name}}</a>
                                     </div>
                                     <!-- End product name -->
                                     <!-- product price -->
                                     <div class="product-price">
-                                        <span class="old-price">৳500.00</span>
-                                        <span class="price">৳600.00</span>
+                                        <!-- <span class="old-price">৳500.00</span> -->
+                                        <span class="price">৳{{$man->price}}</span>
                                     </div>
                                     <!-- End product price -->
                                    
                                 </div>
                                 <!-- End product details -->
                             </div>
+                            @empty
                             <div class="col-12 item">
                                 <!-- start product image -->
-                                <div class="product-image">
-                                    <!-- start product image -->
-                                    <a href="#" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="primary blur-up lazyload" data-src="assets/images/product-images/men_denim_1.jpg" src="assets/images/product-images/men_denim_1.jpg" alt="image" title="product">
-                                        <!-- End image -->
-                                        <!-- Hover image -->
-                                        <img class="hover blur-up lazyload" data-src="assets/images/product-images/men_denim_1_1.jpg" src="assets/images/product-images/men_denim_1_1.jpg" alt="image" title="product">
-                                        <!-- End hover image -->
-                                        <!-- Variant Image-->
-                                        <img class="grid-view-item__image hover variantImg" src="assets/images/product-images/men_denim_1.jpg" alt="image" title="product">
-                                        <!-- Variant Image-->
-                                    </a>
-                                    <!-- end product image -->
-
-                                    <!-- Start product button -->
-                                    <form class="variants add" action="#" onclick="window.location.href='cart.html'"method="post">
-                                        <button class="btn btn-addto-cart" type="button" tabindex="0">Select Options</button>
-                                    </form>
-                              
-                                    <!-- end product button -->
-                                </div>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details text-center">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">Men Denim Pant</a>
-                                    </div>
-                                    <!-- End product name -->
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="price">৳748.00</span>
-                                    </div>
-                                    <!-- End product price -->
-                                  
-                                </div>
+                               <h4>There are no product available now.</h4>
                                 <!-- End product details -->
                             </div>
-                            <div class="col-12 item">
-                                <!-- start product image -->
-                                <div class="product-image">
-                                    <!-- start product image -->
-                                   <a href="#" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="primary blur-up lazyload" data-src="assets/images/product-images/men_half_shirt_1.jpg" src="assets/images/product-images/men_half_shirt_1.jpg" alt="image" title="product">
-                                        <!-- End image -->
-                                        <!-- Hover image -->
-                                        <img class="hover blur-up lazyload" data-src="assets/images/product-images/men_half_shirt_1_1.jpg" src="assets/images/product-images/men_half_shirt_1_1.jpg" alt="image" title="product">
-                                        <!-- End hover image -->
-                                        <!-- Variant Image-->
-                                        <img class="grid-view-item__image hover variantImg" src="assets/images/product-images/men_half_shirt_1.jpg" alt="image" title="product">
-                                        <!-- Variant Image-->
-                                         
-                                    </a>
-                                    <!-- end product image -->
-
-                                    <!-- Start product button -->
-                                    <form class="variants add" action="#" onclick="window.location.href='cart.html'"method="post">
-                                        <button class="btn btn-addto-cart" type="button" tabindex="0">Add To Cart</button>
-                                    </form>
-                                  
-                                    <!-- end product button -->
-                                </div>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details text-center">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">Men Half Shirt</a>
-                                    </div>
-                                    <!-- End product name -->
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="price">৳550.00</span>
-                                    </div>
-                                    <!-- End product price -->
-                                
-                                </div>
-                                <!-- End product details -->
-                            </div>
-                            <div class="col-12 item">
-                                <!-- start product image -->
-                                <div class="product-image">
-                                    <!-- start product image -->
-                                    <a href="#" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="primary blur-up lazyload" data-src="assets/images/product-images/men_tshirt_1.jpg" src="assets/images/product-images/men_tshirt_1.jpg" alt="image" title="product" />
-                                        <!-- End image -->
-                                        <!-- Hover image -->
-                                        <img class="hover blur-up lazyload" data-src="assets/images/product-images/men_tshirt_1_1.jpg" src="assets/images/product-images/men_tshirt_1_1.jpg" alt="image" title="product" />
-                                        <!-- End hover image -->
-                                        <!-- Variant Image-->
-                                        <img class="grid-view-item__image hover variantImg" src="assets/images/product-images/men_tshirt_1.jpg" alt="image" title="product">
-                                        <!-- Variant Image-->
-                                        <!-- product label -->
-                                        <!-- <div class="product-labels rounded"><span class="lbl on-sale">Sale</span></div> -->
-                                        <!-- End product label -->
-                                    </a>
-                                    <!-- end product image -->
-
-                                    <!-- Start product button -->
-                                    <form class="variants add" action="#" onclick="window.location.href='cart.html'"method="post">
-                                        <button class="btn btn-addto-cart" type="button" tabindex="0">Add To Cart</button>
-                                    </form>
-                                   
-                                    <!-- end product button -->
-                                </div>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details text-center">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">Men T-Shirt</a>
-                                    </div>
-                                    <!-- End product name -->
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="old-price">৳900.00</span>
-                                        <span class="price">৳788.00</span>
-                                    </div>
-                                    <!-- End product price -->
-                                    
-                                </div>
-                                <!-- End product details -->
-                            </div>
-                            <div class="col-12 item">
-                                <!-- start product image -->
-                                <div class="product-image">
-                                    <!-- start product image -->
-                                    <a href="#" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="primary blur-up lazyload" data-src="assets/images/product-images/men_panjabi_1.jpg" src="assets/images/product-images/men_panjabi_1.jpg" alt="image" title="product" />
-                                        <!-- End image -->
-                                        <!-- Hover image -->
-                                        <img class="hover blur-up lazyload" data-src="assets/images/product-images/men_panjabi_1_1.jpg" src="assets/images/product-images/men_panjabi_1_1.jpg" alt="image" title="product" />
-                                        <!-- End hover image -->
-                                        <!-- Variant Image-->
-                                        <img class="grid-view-item__image hover variantImg" src="assets/images/product-images/men_panjabi_1.jpg" alt="image" title="product">
-                                        <!-- Variant Image-->
-                                    </a>
-                                    <!-- end product image -->
-
-                                    <!-- Start product button -->
-                                    <form class="variants add" action="#" onclick="window.location.href='cart.html'"method="post">
-                                        <button class="btn btn-addto-cart" type="button" tabindex="0">Select Options</button>
-                                    </form>
-                                  
-                                    <!-- end product button -->
-                                </div>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details text-center">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">Men Panjabi</a>
-                                    </div>
-                                    <!-- End product name -->
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="price">৳550.00</span>
-                                    </div>
-                                    <!-- End product price -->
-                              
-                                </div>
-                                <!-- End product details -->
-                            </div>
+                            @endforelse
                         </div>
                     </div>
             	</div>    
@@ -535,23 +203,18 @@
                             <!-- <p>Our most popular products based on sales</p> -->
                         </div>
 						<div class="productSlider grid-products">
+                            @forelse($kids as $kid)
                             <div class="col-12 item">
                                 <!-- start product image -->
                                 <div class="product-image">
                                     <!-- start product image -->
                                     <a href="#" class="grid-view-item__link">
                                         <!-- image -->
-                                        <img class="primary blur-up lazyload" data-src="assets/images/product-images/kid_tshirt_1.jpg" src="assets/images/product-images/kid_tshirt_1.jpg" alt="image" title="product">
+                                        <img class="primary blur-up lazyload" data-src="{{asset('/uploads/product/'.$kid->m_image)}}" src="{{asset('/uploads/product/'.$kid->m_image)}}" alt="image" title="product">
                                         <!-- End image -->
                                         <!-- Hover image -->
-                                        <img class="hover blur-up lazyload" data-src="assets/images/product-images/kid_tshirt_1_1.jpg" src="assets/images/product-images/kid_tshirt_1_1.jpg" alt="image" title="product">
+                                        <img class="hover blur-up lazyload" data-src="{{asset('/uploads/product/'.$kid->m_image)}}" src="{{asset('/uploads/product/'.$kid->m_image)}}" alt="image" title="product">
                                         <!-- End hover image -->
-                                        <!-- Variant Image-->
-                                        <img class="grid-view-item__image hover variantImg" src="assets/images/product-images/kid_tshirt_1.jpg" alt="image" title="product">
-                                        <!-- Variant Image-->
-                                        <!-- product label -->
-                                        <!-- <div class="product-labels rounded"><span class="lbl on-sale">Sale</span> <span class="lbl pr-label1">new</span></div> -->
-                                        <!-- End product label -->
                                     </a>
                                     <!-- end product image -->
                                      
@@ -568,192 +231,26 @@
                                 <div class="product-details text-center">
                                     <!-- product name -->
                                     <div class="product-name">
-                                        <a href="#">Kid T-Shirt</a>
+                                        <a href="#">{{$kid->product_name}}</a>
                                     </div>
                                     <!-- End product name -->
                                     <!-- product price -->
                                     <div class="product-price">
-                                        <span class="old-price">৳500.00</span>
-                                        <span class="price">৳600.00</span>
+                                        <!-- <span class="old-price">৳500.00</span> -->
+                                        <span class="price">৳{{$kid->price}}</span>
                                     </div>
                                     <!-- End product price -->
                                    
                                 </div>
                                 <!-- End product details -->
                             </div>
+                            @empty
                             <div class="col-12 item">
                                 <!-- start product image -->
-                                <div class="product-image">
-                                    <!-- start product image -->
-                                    <a href="#" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="primary blur-up lazyload" data-src="assets/images/product-images/kid_panjabi_1.jpg" src="assets/images/product-images/kid_panjabi_1.jpg" alt="image" title="product">
-                                        <!-- End image -->
-                                        <!-- Hover image -->
-                                        <img class="hover blur-up lazyload" data-src="assets/images/product-images/kid_panjabi_1_1.jpg" src="assets/images/product-images/kid_panjabi_1_1.jpg" alt="image" title="product">
-                                        <!-- End hover image -->
-                                        <!-- Variant Image-->
-                                        <img class="grid-view-item__image hover variantImg" src="assets/images/product-images/kid_panjabi_1.jpg" alt="image" title="product">
-                                        <!-- Variant Image-->
-                                    </a>
-                                    <!-- end product image -->
-
-                                    <!-- Start product button -->
-                                    <form class="variants add" action="#" onclick="window.location.href='cart.html'"method="post">
-                                        <button class="btn btn-addto-cart" type="button" tabindex="0">Select Options</button>
-                                    </form>
-                              
-                                    <!-- end product button -->
-                                </div>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details text-center">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">Kid Panjabi</a>
-                                    </div>
-                                    <!-- End product name -->
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="price">৳748.00</span>
-                                    </div>
-                                    <!-- End product price -->
-                                  
-                                </div>
+                               <h4>There are no product available now.</h4>
                                 <!-- End product details -->
                             </div>
-                            <div class="col-12 item">
-                                <!-- start product image -->
-                                <div class="product-image">
-                                    <!-- start product image -->
-                                   <a href="#" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="primary blur-up lazyload" data-src="assets/images/product-images/kid_pant_1.jpg" src="assets/images/product-images/kid_pant_1.jpg" alt="image" title="product">
-                                        <!-- End image -->
-                                        <!-- Hover image -->
-                                        <img class="hover blur-up lazyload" data-src="assets/images/product-images/kid_pant_1_1.jpg" src="assets/images/product-images/kid_pant_1_1.jpg" alt="image" title="product">
-                                        <!-- End hover image -->
-                                        <!-- Variant Image-->
-                                        <img class="grid-view-item__image hover variantImg" src="assets/images/product-images/kid_pant_1.jpg" alt="image" title="product">
-                                        <!-- Variant Image-->
-                                         
-                                    </a>
-                                    <!-- end product image -->
-
-                                    <!-- Start product button -->
-                                    <form class="variants add" action="#" onclick="window.location.href='cart.html'"method="post">
-                                        <button class="btn btn-addto-cart" type="button" tabindex="0">Add To Cart</button>
-                                    </form>
-                                  
-                                    <!-- end product button -->
-                                </div>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details text-center">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">Kid Pant</a>
-                                    </div>
-                                    <!-- End product name -->
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="price">৳550.00</span>
-                                    </div>
-                                    <!-- End product price -->
-                                
-                                </div>
-                                <!-- End product details -->
-                            </div>
-                            <div class="col-12 item">
-                                <!-- start product image -->
-                                <div class="product-image">
-                                    <!-- start product image -->
-                                    <a href="#" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="primary blur-up lazyload" data-src="assets/images/product-images/kid_dress_girl_1.jpg" src="assets/images/product-images/kid_dress_girl_1.jpg" alt="image" title="product" />
-                                        <!-- End image -->
-                                        <!-- Hover image -->
-                                        <img class="hover blur-up lazyload" data-src="assets/images/product-images/kid_dress_girl_1_1.jpg" src="assets/images/product-images/kid_dress_girl_1_1.jpg" alt="image" title="product" />
-                                        <!-- End hover image -->
-                                        <!-- Variant Image-->
-                                        <img class="grid-view-item__image hover variantImg" src="assets/images/product-images/kid_dress_girl_1.jpg" alt="image" title="product">
-                                        <!-- Variant Image-->
-                                        <!-- product label -->
-                                        <!-- <div class="product-labels rounded"><span class="lbl on-sale">Sale</span></div> -->
-                                        <!-- End product label -->
-                                    </a>
-                                    <!-- end product image -->
-
-                                    <!-- Start product button -->
-                                    <form class="variants add" action="#" onclick="window.location.href='cart.html'"method="post">
-                                        <button class="btn btn-addto-cart" type="button" tabindex="0">Add To Cart</button>
-                                    </form>
-                                   
-                                    <!-- end product button -->
-                                </div>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details text-center">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">Girl Dress</a>
-                                    </div>
-                                    <!-- End product name -->
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="old-price">৳900.00</span>
-                                        <span class="price">৳788.00</span>
-                                    </div>
-                                    <!-- End product price -->
-                                    
-                                </div>
-                                <!-- End product details -->
-                            </div>
-                            <div class="col-12 item">
-                                <!-- start product image -->
-                                <div class="product-image">
-                                    <!-- start product image -->
-                                    <a href="#" class="grid-view-item__link">
-                                        <!-- image -->
-                                        <img class="primary blur-up lazyload" data-src="assets/images/product-images/kid_dress_girl_1_1.jpg" src="assets/images/product-images/kid_dress_girl_1_1.jpg" alt="image" title="product" />
-                                        <!-- End image -->
-                                        <!-- Hover image -->
-                                        <img class="hover blur-up lazyload" data-src="assets/images/product-images/kid_dress_girl_1.jpg" src="assets/images/product-images/kid_dress_girl_1.jpg" alt="image" title="product" />
-                                        <!-- End hover image -->
-                                        <!-- Variant Image-->
-                                        <img class="grid-view-item__image hover variantImg" src="assets/images/product-images/kid_dress_girl_1_1.jpg" alt="image" title="product">
-                                        <!-- Variant Image-->
-                                    </a>
-                                    <!-- end product image -->
-
-                                    <!-- Start product button -->
-                                    <form class="variants add" action="#" onclick="window.location.href='cart.html'"method="post">
-                                        <button class="btn btn-addto-cart" type="button" tabindex="0">Select Options</button>
-                                    </form>
-                                  
-                                    <!-- end product button -->
-                                </div>
-                                <!-- end product image -->
-
-                                <!--start product details -->
-                                <div class="product-details text-center">
-                                    <!-- product name -->
-                                    <div class="product-name">
-                                        <a href="#">Kid Girl Dress</a>
-                                    </div>
-                                    <!-- End product name -->
-                                    <!-- product price -->
-                                    <div class="product-price">
-                                        <span class="price">৳550.00</span>
-                                    </div>
-                                    <!-- End product price -->
-                              
-                                </div>
-                                <!-- End product details -->
-                            </div>
+                            @endforelse
                         </div>
                     </div>
             	</div>    

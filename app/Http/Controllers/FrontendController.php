@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\Auth;
 class FrontendController extends Controller
 {
     public function index(){
-        return view('index');
+        $men = product::where('p_branch_id','=','1')->where('prostatus','1')->orderBy('id', 'DESC')->limit(10)->get();
+        $women = product::where('p_branch_id','=','2')->where('prostatus','1')->orderBy('id', 'DESC')->limit(10)->get();
+        $kids = product::where('p_branch_id','=','3')->where('prostatus','1')->orderBy('id', 'DESC')->limit(10)->get();
+        // dd($women);
+        return view('index',compact('men','women','kids'));
     }
 
     public function admin_index(){

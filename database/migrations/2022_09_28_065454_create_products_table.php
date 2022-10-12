@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            // $table->string('cat_id')->nullable();
+            $table->string('p_branch_id')->nullable();
+            $table->string('p_cat_id')->nullable();
             $table->string('subcat_id')->nullable();
             $table->string('product_code')->nullable();
             $table->string('product_name')->nullable();

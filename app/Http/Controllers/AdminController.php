@@ -171,7 +171,8 @@ class AdminController extends Controller
     }
 
     public function product_add(Request $request){
-//        dd($request->all());
+        $all_id = subcatagory_info::Join('catagory_infos','subcatagory_infos.cat_id','=','catagory_infos.id')->Join('branches','catagory_infos.branch_id','=','branches.id')->where('subcatagory_infos.id',$request->subcat_id)->first(['subcatagory_infos.cat_id','catagory_infos.branch_id']);
+            //    dd($request->all(),$all_id);
         $filename='';
         $filename1='';
         $filename_others[]='';
@@ -214,6 +215,8 @@ class AdminController extends Controller
         $filename_others = implode(',',$filename_others);
 
         product::create([
+            'p_branch_id' => $all_id->branch_id,
+            'p_cat_id' => $all_id->cat_id,
             'subcat_id' => $request->subcat_id,
             'product_code' => $request->product_code,
             'product_name' => $request->product_name,
