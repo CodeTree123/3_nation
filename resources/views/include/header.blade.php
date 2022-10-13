@@ -149,7 +149,7 @@
           <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
             <div class="logo">
               <a href="/">
-                <img src="assets/images/logo_final.png" alt="3 Nation BD" title="3 Nation BD" />
+                <img src="{{asset('assets/images/logo_final.png')}}" alt="3 Nation BD" title="3 Nation BD" />
 
               </a>
             </div>
@@ -243,49 +243,36 @@
       <div class="closemobileMenu"><i class="icon anm anm-times-l pull-right"></i> Close Menu</div>
       <ul id="MobileNav" class="mobile-nav">
         <li class="lvl1 parent megamenu"><a href="/">Home</a></li>
-        <li class="lvl1 parent megamenu"><a href="/">Men <i class="anm anm-plus-l"></i></a>
+        @php
+          $branches = branches() ;
+          $catagories = catagories();
+          $subcatagories = subcatagories();
+          $carts = cart();
+        @endphp
+        @foreach($branches as $branch)
+        <li class="lvl1 parent megamenu"><a href="/">{{$branch->branch_name}} <i class="anm anm-plus-l"></i></a>
           <ul>
-            <li><a href="#" class="site-nav">Men Shirts<i class="anm anm-plus-l"></i></a>
+            @foreach($catagories as $catagory)
+            @if($catagory->branch_id == $branch->id)
+            <li><a href="#" class="site-nav">{{$catagory->catagory_name}}<i class="anm anm-plus-l"></i></a>
               <ul>
-                <li><a href="/" class="site-nav">Casual Shirt Full</a></li>
-                <li><a href="" class="site-nav"> Casual Shirt Half</a></li>
-                <li><a href="" class="site-nav"> Formal Shirt Full </a></li>
-                <li><a href="" class="site-nav"> Slim Fit Shirt</a></li>
-                <li><a href="" class="site-nav"> Fatua</a></li>
+                @foreach($subcatagories as $subcatagory)
+                @if($subcatagory->cat_id == $catagory->id)
+                  <li>
+                    <a href="{{route('shop_main_category',[$subcatagory->id])}}" class="site-nav">{{$subcatagory->subcatagory_name}}</a>
+                  </li>
+                @endif
+                @endforeach
               </ul>
             </li>
-            <li><a href="#" class="site-nav">Men Pants<i class="anm anm-plus-l"></i></a>
-              <ul>
-                <li><a href="" class="site-nav"> Denim/Jeans</a></li>
-                <li><a href="" class="site-nav"> Short Pant</a></li>
-                <li><a href="" class="site-nav"> Cotton Pant</a></li>
-                <li><a href="" class="site-nav"> Trouser</a></li>
-              </ul>
-            </li>
-            <li><a href="#" class="site-nav">Accessories<i class="anm anm-plus-l"></i></a>
-              <ul>
-                <li><a href="home11-grid.html" class="site-nav"> Sneakers</a></li>
-                <li><a href="home5-cosmetic.html" class="site-nav"> Converse</a></li>
-              </ul>
-            </li>
-            <li><a href="#" class="site-nav">T-SHIRT & POLO SHIRTS<i class="anm anm-plus-l"></i></a>
-              <ul>
-                <li><a href="home13-" class="site-nav"> T-Shirt Half </a></li>
-                <li><a href="#" class="site-nav"> Polo Shirt Half </a></li>
-              </ul>
-            </li>
-            <li><a href="#" class="site-nav">MEN PANJABI'S<i class="anm anm-plus-l"></i></a>
-              <ul>
-                <li><a href="#" class="site-nav"> Mens Kabli </a></li>
-                <li><a href="#" class="site-nav"> Regular Fit Panjabi </a></li>
-                <li><a href="#" class="site-nav"> Mens Paijama</a></li>
-                <li><a href="#" class="site-nav"> Exclusive Panjabi</a></li>
-                <li><a href="#" class="site-nav"> Slim Fit Panjabi </a></li>
-              </ul>
-            </li>
+            @endif
+            @endforeach
           </ul>
         </li>
-        <li class="lvl1 parent megamenu"><a href="#">Women <i class="anm anm-plus-l"></i></a>
+        @endforeach
+
+
+        <!-- <li class="lvl1 parent megamenu"><a href="#">Women <i class="anm anm-plus-l"></i></a>
           <ul>
             <li><a href="#" class="site-nav">READY-TO-WEAR<i class="anm anm-plus-l"></i></a>
               <ul>
@@ -325,7 +312,7 @@
             </li>
 
           </ul>
-        </li>
+        </li> -->
         <!-- <li class="lvl1 parent megamenu"><a href="about-us.html">Pages <i class="anm anm-plus-l"></i></a>
           <ul>
             <li><a href="cart-variant1.html" class="site-nav">Cart Page <i class="anm anm-plus-l"></i></a>
